@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kyler Saiki Portfolio</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Golos+Text">
+</head>
+<body>
+  <main>
+    <section>
+      <div id="welcome">
+        <div class="heading-first">
+          <h1 class="heading-intro">Hi! I'm <span class="heading-name">Kyler</span></h1>
+        </div>
+        
+        <p class="heading-second">Here you can find information about my background and experience, as well as a selection of my projects.</p>
+        <a href="#background" id="view-more">View more</a>
+      </div>
+    </section>
+    
+    <section >
+      <div id="background">
+        <h1 class="title">About</h1>
+        <div id="about" class="info">
+          <p>My name is <span class="red-text">Kyler Saiki</span> and I am a third year Computer Science: Game Design major at the <span class="red-text">University of Southern California</span>. I am passionate about coding and constantly strive to improve my skills and stay up to date with the latest industry trends.  Some hobbies of mine are <span class="red-text">rock climbing, soccer,</span> and <span class=red-text>videogames</span>. Here are my skills and familiar technologies.  <span class="red-text">Continue scrolling</span> down to see my projects and contact information!</p>
+        </div>
+        <div id="skills" class="info">
+          <div class="skill">
+            <h3>Programming Languages</h3>
+            <li>JavaScript</li>
+            <li>Python</li>
+            <li>Java</li>
+            <li>C++</li>
+            <li>SQL</li>
+            <li>NoSQL</li>
+            <li>Swift</li>
+            <li>HTML</li>
+            <li>CSS</li>
+          </div>
+          <div class="skill">
+            <h3>Frameworks/Other</h3>
+            <li>ReactJS</li>
+            <li>NodeJS</li>
+            <li>ExpressJS</li>
+            <li>MongoDB</li>
+            <li>AWS</li>
+            <li>Git</li>
+            <li>Linux</li>
+            <li>Github Actions</li>
+            <li>Maya</li>
+            <li>Photoshop</li>
+            <li>Illustrator</li>
+          </div>
+        </div>
+      </div>
+      <div class="clearfloat"></div>
+    </section>
+
+
+    <section>
+      <h1 class="title">Projects</h1>
+      <div id="projects">
+          <div class="project">
+            <img src="./assets/Flushr-Img.png" alt="Flushr" class="proj-image">
+            <h2 class="project-name">Flushr</h2>
+            <p class="technologies">Java, HTML, CSS, MySQL, AWS Elastic Beanstalk, RDS, S3, Route 53</p>
+            <p>Searches for restrooms in the area and sorts the results based on different settings</p>
+            <a href="https://github.com/CS201Group/Flushr" target="_blank" class="learn-more">Learn More</a>
+          </div>
+          <div class="project">
+            <img src="./assets/grouplan-img.png" alt="Grouplan" class="proj-image">
+            <h2 class="project-name">Grouplan</h2>
+            <p class="technologies">Swift, Google API, Firebase</p>
+            <p>Grouplan is an iOS application that allows users to plan out detailed events together from different devices.  Users can create events, view the events they are added to, or join new events via an event key and password. Firebase updates user's changes automatically, allowing users to make changes together in real time</p>
+            <a href="https://github.com/kysaiki/Grouplan" target="_blank" class="learn-more">Learn More</a>
+          </div>
+          <div class="project">
+            <img src="./assets/Stock-Correlation-Sample.png" alt="Stock Correlation Project" class="proj-image">
+            <h2 class="project-name">COVID Stock Correlation</h2>
+            <p class="technologies">Python Flask, HTML, CSS, AWS S3, AWS EC2</p>
+            <p>COVID Stock Correlation is a webapp finds the correlation between COVID cases in a state and a stock's price.  Users input a stock ticker symbol and a state abbreviation and the website will display a dotplot of cases mapped with stock price and the correlation strength.</p>
+            <a href="https://github.com/kysaiki/COVID-Stock-Correlation" target="_blank" class="learn-more">Learn More</a>
+          </div>
+          <div class="project">
+            <img src="project4.jpg" alt="Project 4" class="proj-image">
+            <h2 class="project-name">NASA Mission Control Simulator</h2>
+            <p>A brief description of the project, its features and technologies used.</p>
+            <a href="http://project4.com" target="_blank" class="learn-more">Learn More</a>
+          </div>
+          <div class="project">
+            <img src="project3.jpg" alt="Project 3" class="proj-image">
+            <h2 class="project-name">Multithreaded Web Server</h2>
+            <p class="technologies">C++</p>
+            <p>A brief description of the project, its features and technologies used.</p>
+            <a href="http://project3.com" target="_blank" class="learn-more">Learn More</a>
+          </div>
+          <div class="project">
+            <img src="project4.jpg" alt="Project 4" class="proj-image">
+            <h2 class="project-name">Mario Recreation</h2>
+            <p class="technologies">C++</p>
+            <p>A faithful recreation of the original Super Mario Bros game coded in C++.  </p>
+            <a href="http://project4.com" target="_blank" class="learn-more">Learn More</a>
+          </div>
+        </div>
+        
+      </div>
+  </section>
+  <h1 class="title">Contact</h1>
+    <form action="https://formspree.io/f/mnqyzewn" method="post" class="contact-form">
+      <div class="contact-field">
+        <label for="name" class="form-label">Name:</label>
+        <input type="text" id="name" name="name">
+      </div>
+      <div class="contact-field">
+        <label for="email" class="form-label">Email:</label>
+        <input type="mail" id="email" name="mail">
+      </div>
+      <div class="contact-field">
+        <label for="message" class="form-label message-label">Message:</label>
+        <textarea id="message" name="message"></textarea>
+      </div>
+      <input type="submit" value="Send" class="send-button">
+    </form>
+  </div>
+    </section>
+  </main>
+  <footer>
+    <div id="contact">
+      <a href = "mailto:kylersaiki@gmail.com" class="contact-button gmail-link"><img src="./assets/gmail-icon.png" alt="Gmail Icon" class="contact-icon"></a>
+      <a href = "https://www.linkedin.com/in/kyler-saiki/" class="contact-button linkedin-link"><img src="./assets/linked-in-icon.png" alt="LinkedIn Icon" class="contact-icon"></a>
+      <a href = "https://github.com/kysaiki" class="contact-button github-link"><img src="./assets/github-icon.png" alt="Github Icon" class="contact-icon"></a>
+      <a href="./assets/Kyler_Saiki_Resume.pdf" download class="contact-button resume-link"><img src="./assets/resume-icon.png" alt="Resume Icon" class="contact-icon"></a>
+    </div>
+    
+    <p>Copyright © 2023 Kyler Saiki</p>
+  </footer>
+</body>
+</html>
