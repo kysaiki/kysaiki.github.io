@@ -114,6 +114,7 @@ footer {
   height: auto;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 5%;
 }
 
 .heading-name {
@@ -144,9 +145,8 @@ footer {
 
 .heading-second {
   position: relative;
-    top: -8%;
-    font-size: 1.5rem;
-    font-weight: 100;
+  font-size: 1.5rem;
+  font-weight: 100;
 }
 
 #contact {
