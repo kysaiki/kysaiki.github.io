@@ -252,6 +252,19 @@ input {
   border-width: 1px;
   border-radius: 5%;
   border-color: #FF3B3F;
+  width: 6rem;
+}
+.send-button:hover {
+  margin-top: 10px;
+  background-color: #FF3B3F;
+  color: #ebebeb;
+  text-decoration: none;
+  border-radius: 50%;
+  padding: 10px;
+  border-style:solid;
+  border-width: 1px;
+  border-radius: 5%;
+  width: 6rem;
 }
 
 
