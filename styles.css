@@ -245,8 +245,9 @@ input {
 .send-button {
   margin-top: 10px;
   color: #FF3B3F;
+  background-color: #EFEFEF;
   text-decoration: none;
-  border-radius: 50%;
+  border-radius: 35%;
   padding: 10px;
   border-style:solid;
   border-width: 1px;
@@ -259,7 +260,7 @@ input {
   background-color: #FF3B3F;
   color: #ebebeb;
   text-decoration: none;
-  border-radius: 50%;
+  border-radius: 35%;
   padding: 10px;
   border-style:solid;
   border-width: 1px;
