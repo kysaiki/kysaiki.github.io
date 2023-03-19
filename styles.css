@@ -117,6 +117,11 @@ footer {
   margin-bottom: 5%;
 }
 
+.heading-first {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
 .heading-name {
   top: 15rem;
   font-size: 6rem;
@@ -147,6 +152,8 @@ footer {
   position: relative;
   font-size: 1.5rem;
   font-weight: 100;
+  margin-left: 10%;
+  margin-right: 10%;
 }
 
 #contact {
@@ -307,4 +314,44 @@ input {
 h3 {
   color: #9ab5bb;
   font-size: 1.45rem;
+}
+
+
+
+@media (max-width: 950px) {
+  #about {
+    font-size: 1.4rem;
+  }
+
+  .skill {
+    font-size: 1.1rem;
+    margin: 0.8em;
+    margin-bottom: 0.1em;
+  }
+
+  .project {
+    margin: 0.8em;
+    text-align: left;
+    border-color: #d6d6d6;
+    border-style: solid;
+    border-width: 5px;
+    padding: 3%;
+    border-radius: 15px;
+    flex: 30%;
+  }
+}
+
+
+@media (max-width: 550px) {
+
+  .project {
+    margin: 0.8em;
+    text-align: left;
+    border-color: #d6d6d6;
+    border-style: solid;
+    border-width: 5px;
+    padding: 3%;
+    border-radius: 15px;
+    flex: 100%;
+  }
 }
