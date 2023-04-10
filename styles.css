@@ -359,3 +359,16 @@ h3 {
     flex: 100%;
   }
 }
+
+@media (pointer:none), (pointer:coarse) {
+  .project {
+    margin: 0.8em;
+    text-align: left;
+    border-color: #d6d6d6;
+    border-style: solid;
+    border-width: 5px;
+    padding: 3%;
+    border-radius: 15px;
+    flex: 100%;
+  }
+}
