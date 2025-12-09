@@ -26,7 +26,31 @@ const allProjects = [
     variant: "primary",
     skills: ["2K", "Tools", "Production", "C++"],
     bgGif: "media/bg-nba-2k26.jpg"   // 👈 exact filename & path
-  }
+  },
+  {
+    id: "egregore",
+    title: "Egregore — Gameplay/Tools",
+    short: "Production tools & game systems for NBA 2K26.",
+    detail: [
+      "Contributed to NBA 2K26 engineering, focusing on tools, workflows, and systems that support large-scale sports development.",
+      "Built and refined pipelines that improve iteration speed for designers, artists, and gameplay engineers."
+    ],
+    variant: "primary",
+    skills: ["Gameplay", "Unreal Engine", "Tools"],
+    bgGif: "media/bg-egregore2.png"   // 👈 exact filename & path
+  },
+  {
+    id: "couchwizards",
+    title: "Couch Wizards — Solo Dev",
+    short: "Production tools & game systems for NBA 2K26.",
+    detail: [
+      "Contributed to NBA 2K26 engineering, focusing on tools, workflows, and systems that support large-scale sports development.",
+      "Built and refined pipelines that improve iteration speed for designers, artists, and gameplay engineers."
+    ],
+    variant: "primary",
+    skills: ["Gameplay", "Unreal Engine", "Tools"],
+    bgGif: "media/bg-egregore2.png"   // 👈 exact filename & path
+  },
   // Add more projects here with skills[], and optionally image/video/bgGif.
 ];
 
@@ -449,6 +473,7 @@ const allProjects = [
       });
     });
   }
+  
 
   // Call from init
   function init() {

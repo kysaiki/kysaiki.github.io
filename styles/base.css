@@ -24,6 +24,17 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: system-ui, -apple-system, "SF Pro Text", "Segoe UI", sans-serif;
+
+  /* Custom cursor (center hotspot at 16,16 for a 32x32 image) */
+  cursor: url("../media/cursor-kyler.png") 16 16, auto;
+}
+
+a,
+button,
+[role="button"],
+label,
+.project-card {
+  cursor: url("../media/cursor-kyler.png") 16 16, pointer;
 }
 
 /* ========== BACKGROUND MEDIA ========== */
