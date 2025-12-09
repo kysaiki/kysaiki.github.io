@@ -1,5 +1,13 @@
 @import url("base.css");
 @import url("layout.css");
-@import url("components.css");
+
+/* Components */
+@import url("components/identity-nav.css");
+@import url("components/contact-icons.css");
+@import url("components/project-filter.css");
+@import url("components/projects-nav.css");
+@import url("components/cv-downloads.css");
+@import url("components/detail-overlay-content.css");
+
 @import url("sections.css");
 @import url("effects.css");

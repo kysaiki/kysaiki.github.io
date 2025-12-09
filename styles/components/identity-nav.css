@@ -1,0 +1,63 @@
+/* ========== IDENTITY & NAV ========== */
+
+.identity-block {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.identity-block__mark {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.4rem;
+  background: var(--accent);
+  color: #020617;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.identity-block__name {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.identity-block__role {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.corner-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.nav-link {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition:
+    color var(--transition-fast),
+    transform var(--transition-fast),
+    text-shadow var(--transition-fast);
+}
+
+.nav-link:hover {
+  color: var(--text);
+}
+
+/* Highlight active section */
+#section-bio:checked      ~ .layout .corner-nav label[for="section-bio"],
+#section-projects:checked ~ .layout .corner-nav label[for="section-projects"],
+#section-cv:checked       ~ .layout .corner-nav label[for="section-cv"],
+#section-contact:checked  ~ .layout .corner-nav label[for="section-contact"] {
+  color: var(--text);
+  font-weight: 500;
+  text-shadow: 0 0 12px rgba(56,189,248,0.6);
+}

@@ -60,3 +60,31 @@
   40%  { transform: scale(1.12); }
   100% { transform: scale(1); }
 }
+
+/* ========== DETAIL OVERLAY EFFECTS ========== */
+
+.detail-overlay {
+  transition: opacity 260ms ease-out;
+}
+
+.detail-overlay__content {
+  transform: translateX(40px);
+  transition: transform 260ms ease-out;
+}
+
+/* Visible state: fade in & slide in from right */
+.detail-overlay--visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.detail-overlay--visible .detail-overlay__content {
+  transform: translateX(0);
+}
+
+/* Exit animation for bottom-right panel when overlay opens */
+.panel--exit-right {
+  transition: opacity 200ms ease-out, transform 200ms ease-out;
+  opacity: 0;
+  transform: translateX(16px);
+}

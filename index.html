@@ -32,7 +32,6 @@
   <!-- 🔥 Project-specific background overlay (NBA2K26, etc.) -->
   <div id="project-bg-overlay" class="project-bg-overlay"></div>
 
-
   <!-- Section radios -->
   <input type="radio" name="section" id="section-bio" checked hidden>
   <input type="radio" name="section" id="section-projects" hidden>
@@ -67,7 +66,6 @@
       </button>
       <div id="skill-filter-menu" class="skill-filter-menu"></div>
     </div>
-
 
     <!-- Bottom-right: Bio / Projects / CV / Contact -->
     <section class="corner corner--bottom-right animate-in animate-in--delay">
@@ -130,7 +128,6 @@
         </div>
       </article>
 
-
       <!-- CONTACT -->
       <article class="panel panel--contact">
         <h2 class="panel__title">Contact</h2>
@@ -173,6 +170,15 @@
 
   </main>
 
-  <script src="scripts/main.js"></script>
+  <!-- Detail overlay (slides in from the right) -->
+  <div id="detail-overlay" class="detail-overlay">
+    <div class="detail-overlay__backdrop"></div>
+    <div class="detail-overlay__content">
+      <button class="detail-overlay__close" aria-label="Close detail">&times;</button>
+      <div id="detail-overlay-body" class="detail-overlay__body"></div>
+    </div>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>

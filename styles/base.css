@@ -68,20 +68,17 @@ body::before {
   min-height: 100vh;
 }
 
-/* Project-specific background overlay (e.g., NBA 2K26) */
 .project-bg-overlay {
   position: fixed;
   inset: 0;
-  z-index: 0;  /* 👈 important: above bg-media, below main (which comes later in DOM) */
-  background-repeat: no-repeat;
-  background-position: center center;
+  z-index: 0;      /* or -1, as long as it's above the video and below main */
   background-size: cover;
-  opacity: 0;              /* hidden by default */
+  background-position: center;
+  opacity: 0;
   transition: opacity 320ms ease-out;
   pointer-events: none;
 }
 
-/* When a project with a bg is active */
 .project-bg-overlay--visible {
-  opacity: 0.45;           /* vignette + transparency */
+  opacity: 0.45;
 }

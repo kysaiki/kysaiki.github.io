@@ -1,0 +1,101 @@
+/* ========== BOTTOM-CENTER: DOTS + PREVIEW ========== */
+
+.projects-nav {
+  position: fixed;
+  bottom: 1.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 2;
+}
+
+/* Only show nav when Projects is active */
+#section-projects:checked ~ .layout .projects-nav {
+  display: flex;
+}
+
+.project-preview {
+  position: relative;
+  height: 160px;
+  width: 240px;
+  opacity: 0;
+  transition: opacity 200ms ease-out;
+  pointer-events: none;
+}
+
+/* Show thumbnail only when nav hovered */
+.projects-nav:hover .project-preview {
+  opacity: 1;
+}
+
+/* Thumbnail card */
+.project-preview__card {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 230px;
+  height: 150px;
+  border-radius: 14px;
+  padding: 0.7rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(56,189,248,0.9),
+      rgba(15,23,42,0.98)
+    );
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.project-preview__card--alt {
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(96,165,250,0.95),
+      rgba(15,23,42,0.98)
+    );
+}
+
+.project-preview__card.is-active {
+  opacity: 1;
+}
+
+.project-preview__title {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.project-preview__desc {
+  font-size: 0.88rem;
+  font-weight: 300;
+}
+
+/* dots */
+.project-dots {
+  display: inline-flex;
+  gap: 0.35rem;
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  border: 1px solid var(--text-muted);
+  cursor: pointer;
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.dot.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}

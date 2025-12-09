@@ -1,63 +1,7 @@
-// ========== PROJECT DATA ==========
-
-const allProjects = [
-  {
-    id: "gearbox-tools",
-    title: "Gearbox Tools & Pipeline",
-    short: "Internal Unreal tooling and production pipelines at Gearbox.",
-    detail: [
-      "Contributed to internal Gearbox tooling focused on Unreal Engine editor extensions, data workflows, and studio-specific pipelines.",
-      "Built and extended Slate-based tools that streamlined asset authoring, validation, and iteration for designers and artists.",
-      "Collaborated with engineers and content teams to improve reliability, debuggability, and UX of editor-facing systems."
-    ],
-    variant: "alt",  // uses the blue-ish alt card style
-    skills: ["Gearbox", "Unreal Engine", "Slate", "Tools", "Pipelines"],
-    bgGif: "media/bg-gbx.jpg" // optional if you later add a Gearbox-specific background
-  },
-  // 🔥 NBA 2K26 project
-  {
-    id: "nba2k26",
-    title: "NBA 2K26 — Engineering",
-    short: "Production tools & game systems for NBA 2K26.",
-    detail: [
-      "Contributed to NBA 2K26 engineering, focusing on tools, workflows, and systems that support large-scale sports development.",
-      "Built and refined pipelines that improve iteration speed for designers, artists, and gameplay engineers."
-    ],
-    variant: "primary",
-    skills: ["2K", "Tools", "Production", "C++"],
-    bgGif: "media/bg-nba-2k26.jpg"   // 👈 exact filename & path
-  },
-  {
-    id: "egregore",
-    title: "Egregore — Gameplay/Tools",
-    short: "Production tools & game systems for NBA 2K26.",
-    detail: [
-      "Contributed to NBA 2K26 engineering, focusing on tools, workflows, and systems that support large-scale sports development.",
-      "Built and refined pipelines that improve iteration speed for designers, artists, and gameplay engineers."
-    ],
-    variant: "primary",
-    skills: ["Gameplay", "Unreal Engine", "Tools"],
-    bgGif: "media/bg-egregore2.png"   // 👈 exact filename & path
-  },
-  {
-    id: "couchwizards",
-    title: "Couch Wizards — Solo Dev",
-    short: "Production tools & game systems for NBA 2K26.",
-    detail: [
-      "Contributed to NBA 2K26 engineering, focusing on tools, workflows, and systems that support large-scale sports development.",
-      "Built and refined pipelines that improve iteration speed for designers, artists, and gameplay engineers."
-    ],
-    variant: "primary",
-    skills: ["Gameplay", "Unreal Engine", "Tools"],
-    bgGif: "media/bg-egregore2.png"   // 👈 exact filename & path
-  },
-  // Add more projects here with skills[], and optionally image/video/bgGif.
-];
-
-
+// js/projects.js
 // ========== CAROUSEL + FILTER + KEYBOARD ==========
 
-(function () {
+export function initProjects(allProjects) {
   const dotsEl          = document.getElementById("project-dots");
   const previewEl       = document.getElementById("project-preview");
   const detailEl        = document.getElementById("project-detail");
@@ -72,14 +16,32 @@ const allProjects = [
   const filterToggle    = document.getElementById("skill-filter-toggle");
   const projectBgEl     = document.getElementById("project-bg-overlay");
 
-  if (!dotsEl || !previewEl || !detailEl || !sectionProjects || !projectsNav) return;
-
   const sectionOrder = [
     sectionBio,
     sectionProjects,
     sectionCV,
     sectionContact
   ];
+
+  // If key elements are missing, bail but still return a safe API
+  if (!dotsEl || !previewEl || !detailEl || !sectionProjects || !projectsNav) {
+    console.warn(
+      "[initProjects] Missing DOM elements, skipping project UI init.",
+      { dotsEl, previewEl, detailEl, sectionProjects, projectsNav }
+    );
+
+    return {
+      handleKeydown: () => {},
+      getAllProjects: () => allProjects,
+      getVisibleProjects: () => [],
+      getSectionState: () => ({
+        sectionBio,
+        sectionProjects,
+        sectionCV,
+        sectionContact
+      })
+    };
+  }
 
   let visibleProjects = [...allProjects];
   let activeIndex = 0;
@@ -89,6 +51,26 @@ const allProjects = [
 
   let menuOpen = false;
   let menuPinned = false;
+
+  // ---------- PROJECT BACKGROUND OVERLAY ----------
+
+  function updateProjectBackground(projectOrNull) {
+    if (!projectBgEl) return;
+
+    const project = projectOrNull || null;
+
+    if (project && project.bgGif && sectionProjects && sectionProjects.checked) {
+      const url = project.bgGif;
+      projectBgEl.style.backgroundImage =
+        `radial-gradient(circle at center, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.9) 100%), url("${url}")`;
+      projectBgEl.classList.add("project-bg-overlay--visible");
+    } else {
+      projectBgEl.classList.remove("project-bg-overlay--visible");
+      projectBgEl.style.backgroundImage = "";
+    }
+  }
+
+  // ---------- FILTER MENU HELPERS ----------
 
   function openMenu() {
     if (!filterMenu) return;
@@ -102,26 +84,6 @@ const allProjects = [
     menuPinned = false;
     filterMenu.classList.remove("is-open");
   }
-
-  // ---------- PROJECT BACKGROUND OVERLAY ----------
-
-  function updateProjectBackground(projectOrNull) {
-    if (!projectBgEl) return;
-
-    const project = projectOrNull || null;
-
-    if (project && project.bgGif) {
-      const url = project.bgGif;
-      projectBgEl.style.backgroundImage =
-        `radial-gradient(circle at center, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.9) 100%), url("${url}")`;
-      projectBgEl.classList.add("project-bg-overlay--visible");
-    } else {
-      projectBgEl.classList.remove("project-bg-overlay--visible");
-      projectBgEl.style.backgroundImage = "";
-    }
-  }
-
-  // ---------- FILTER ----------
 
   function buildSkillFilterMenu() {
     if (!filterMenu) return;
@@ -161,7 +123,6 @@ const allProjects = [
     activeSkill = skill;
     userLocked = true; // user explicitly filtered → pause auto-rotate
 
-    // Replace button label with selected filter text (still prefixed with "Filter:" in HTML)
     if (filterLabel) {
       filterLabel.textContent = activeSkill || "All";
     }
@@ -200,7 +161,7 @@ const allProjects = [
       dot.dataset.index = index.toString();
 
       dot.addEventListener("mouseenter", () => {
-        userLocked = true; // user interacted → stop auto-rotate
+        userLocked = true;
         setActiveProject(index);
         showThumbnail(index);
       });
@@ -257,7 +218,6 @@ const allProjects = [
   }
 
   // ---------- THUMBNAIL (CROSSFADE) ----------
-  // Currently just title + short. You can plug in image/video media if you want.
 
   function showThumbnail(index) {
     const project = visibleProjects[index];
@@ -266,12 +226,7 @@ const allProjects = [
       return;
     }
 
-    // Update project-specific background only while on Projects
-    if (sectionProjects && sectionProjects.checked) {
-      updateProjectBackground(project);
-    } else {
-      updateProjectBackground(null);
-    }
+    updateProjectBackground(project);
 
     const prev = previewEl.querySelector(".project-preview__card.is-active");
     if (prev) {
@@ -312,7 +267,7 @@ const allProjects = [
     if (autoRotateTimer) return;
 
     autoRotateTimer = setInterval(() => {
-      if (!sectionProjects.checked) return;
+      if (!sectionProjects || !sectionProjects.checked) return;
       if (userLocked) return;
       if (visibleProjects.length <= 1) return;
 
@@ -322,47 +277,15 @@ const allProjects = [
     }, 5000);
   }
 
-  // When projects tab is reselected, allow auto-rotation again
   if (sectionProjects) {
     sectionProjects.addEventListener("change", () => {
       userLocked = false;
-      // Ensure background matches current project when returning
       const project = visibleProjects[activeIndex] || null;
       updateProjectBackground(project);
     });
   }
 
-  // ---------- FILTER BUTTON + DROPDOWN BEHAVIOR ----------
-
-  if (filterRoot && filterMenu && filterToggle) {
-    // Hover opens the menu
-    filterRoot.addEventListener("mouseenter", () => {
-      openMenu();
-    });
-
-    // Mouse leaving closes the menu only if not pinned by click
-    filterRoot.addEventListener("mouseleave", () => {
-      if (!menuPinned) {
-        closeMenu();
-      }
-    });
-
-    // Clicking filter pins it open (stays open until click outside)
-    filterToggle.addEventListener("click", (e) => {
-      e.stopPropagation();
-      menuPinned = true;
-      openMenu();
-    });
-
-    // Clicking anywhere outside filterRoot closes and unpins
-    document.addEventListener("click", (e) => {
-      if (!filterRoot.contains(e.target)) {
-        closeMenu();
-      }
-    });
-  }
-
-  // ---------- KEYBOARD NAVIGATION ----------
+  // ---------- SECTION / PROJECT NAV HELPERS ----------
 
   function changeSection(delta) {
     const currentIndex = sectionOrder.findIndex(r => r && r.checked);
@@ -375,7 +298,6 @@ const allProjects = [
       nextRadio.dispatchEvent(new Event("change", { bubbles: true }));
     }
 
-    // Show project background if we land on Projects; otherwise hide it
     if (nextRadio === sectionProjects) {
       const project = visibleProjects[activeIndex] || null;
       updateProjectBackground(project);
@@ -385,7 +307,7 @@ const allProjects = [
   }
 
   function changeProject(delta) {
-    if (!sectionProjects.checked) return;
+    if (!sectionProjects || !sectionProjects.checked) return;
     if (visibleProjects.length === 0) return;
 
     userLocked = true;
@@ -395,14 +317,15 @@ const allProjects = [
     showThumbnail(next);
   }
 
-  window.addEventListener("keydown", (e) => {
+  // ---------- KEYBOARD NAVIGATION (ARROWS) ----------
+
+  function handleKeydown(e) {
     const key = e.key;
 
     if (!["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(key)) {
       return;
     }
 
-    // Don't hijack typing in inputs/textareas/contentEditable
     const target = e.target;
     if (
       target &&
@@ -427,55 +350,47 @@ const allProjects = [
       return;
     }
 
-    if (sectionProjects.checked && key === "ArrowLeft") {
+    if (sectionProjects && sectionProjects.checked && key === "ArrowLeft") {
       e.preventDefault();
       changeProject(-1);
       return;
     }
 
-    if (sectionProjects.checked && key === "ArrowRight") {
+    if (sectionProjects && sectionProjects.checked && key === "ArrowRight") {
       e.preventDefault();
       changeProject(1);
       return;
     }
-  });
+  }
 
-  // ---------- CV / RESUME DOWNLOAD HANDLERS ----------
+  // ---------- FILTER BUTTON + DROPDOWN BEHAVIOR ----------
 
-  function initCvDownloads() {
-    const buttons = document.querySelectorAll(".cv-download");
-    if (!buttons.length) return;
+  if (filterRoot && filterMenu && filterToggle) {
+    filterRoot.addEventListener("mouseenter", () => {
+      openMenu();
+    });
 
-    buttons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        // Play click animation
-        btn.classList.remove("cv-download--animating");
-        // force reflow so animation can retrigger
-        // eslint-disable-next-line no-unused-expressions
-        btn.offsetWidth;
-        btn.classList.add("cv-download--animating");
+    filterRoot.addEventListener("mouseleave", () => {
+      if (!menuPinned) {
+        closeMenu();
+      }
+    });
 
-        const file = btn.getAttribute("data-file");
-        if (!file) return; // nothing to download
+    filterToggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      menuPinned = true;
+      openMenu();
+    });
 
-        // Trigger a download if a file is specified
-        const link = document.createElement("a");
-        link.href = file;
-        link.download = "";
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-      });
-
-      // Clean up animation class at end, so it can be reapplied
-      btn.addEventListener("animationend", () => {
-        btn.classList.remove("cv-download--animating");
-      });
+    document.addEventListener("click", (e) => {
+      if (!filterRoot.contains(e.target)) {
+        closeMenu();
+      }
     });
   }
-  
 
-  // Call from init
+  // ---------- INIT ----------
+
   function init() {
     visibleProjects = [...allProjects];
     if (filterLabel) filterLabel.textContent = "All";
@@ -483,14 +398,21 @@ const allProjects = [
     renderProjects();
     startAutoRotate();
 
-    // Start with no project-specific background (Bio is default)
     updateProjectBackground(null);
-
-    // NEW: wire up CV/Resume buttons
-    initCvDownloads();
   }
 
-    init();
+  init();
 
-})();
-
+  // Public API overlay/main can use
+  return {
+    handleKeydown,
+    getAllProjects: () => allProjects,
+    getVisibleProjects: () => visibleProjects,
+    getSectionState: () => ({
+      sectionBio,
+      sectionProjects,
+      sectionCV,
+      sectionContact
+    })
+  };
+}

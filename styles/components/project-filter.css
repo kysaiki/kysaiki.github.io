@@ -1,0 +1,108 @@
+/* ========== GLOBAL PROJECT FILTER (TOP-RIGHT) ========== */
+
+.projects-filter-root {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: none;
+  align-items: flex-end;      /* align content to the right/bottom of root */
+  justify-content: flex-end;
+  gap: 0.4rem;
+  z-index: 3;
+  text-align: right;
+}
+
+/* Only visible when Projects section is active */
+#section-projects:checked ~ .layout .projects-filter-root {
+  display: flex;
+}
+
+/* Filter button: text only, no border/background, right-aligned text */
+.skill-filter-toggle {
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;  /* text sits to the right */
+  text-align: right;
+  gap: 0.4rem;
+}
+
+.skill-filter-toggle:hover {
+  color: var(--text);
+  text-shadow: 0 0 8px rgba(148,163,184,0.7);
+}
+
+.skill-filter-label {
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.95rem;
+}
+
+/* Minimal dropdown: no box, animated options */
+.skill-filter-menu {
+  position: absolute;
+  top: 2.4rem;
+  right: 0.1rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+  transition: opacity 160ms ease-out, transform 160ms ease-out;
+  text-align: right;
+}
+
+/* Opened state (JS adds .is-open) */
+.skill-filter-menu.is-open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.skill-filter-option {
+  display: block;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  text-align: right;          /* option text aligned right */
+  padding: 0.22rem 0;
+  font-size: 0.85rem;
+  cursor: pointer;
+  white-space: nowrap;
+  opacity: 0;                 /* start transparent, animates in */
+  text-align: right !important;
+  width: 100%;
+}
+
+/* When menu opens, animate options with staggered delays */
+.skill-filter-menu.is-open .skill-filter-option {
+  animation: filterOptionDrop 200ms ease forwards;
+}
+
+.skill-filter-menu.is-open .skill-filter-option:nth-child(1) { animation-delay: 20ms; }
+.skill-filter-menu.is-open .skill-filter-option:nth-child(2) { animation-delay: 60ms; }
+.skill-filter-menu.is-open .skill-filter-option:nth-child(3) { animation-delay: 100ms; }
+.skill-filter-menu.is-open .skill-filter-option:nth-child(4) { animation-delay: 140ms; }
+.skill-filter-menu.is-open .skill-filter-option:nth-child(5) { animation-delay: 180ms; }
+/* (extra options will still animate, just less staggered) */
+
+/* Hover / selected highlight */
+.skill-filter-option:hover {
+  color: var(--text);
+  text-shadow: 0 0 6px rgba(148,163,184,0.6);
+}
+
+.skill-filter-option.is-active {
+  color: var(--accent);
+  font-weight: 500;
+}

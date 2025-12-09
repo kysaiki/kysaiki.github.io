@@ -17,3 +17,31 @@
   text-align: right;
 }
 
+/* ========== DETAIL OVERLAY LAYOUT ========== */
+
+.detail-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20; /* above everything else */
+  display: flex;
+  justify-content: flex-end;
+  align-items: stretch;
+  pointer-events: none; /* enabled when visible class added */
+  opacity: 0;
+}
+
+.detail-overlay__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5); /* 50% transparent black */
+}
+
+.detail-overlay__content {
+  position: relative;
+  width: 66.67vw;          /* take up ~1/3 of the viewport width */
+  max-width: 1500px;         /* cap it a bit on huge screens */
+  min-width: 260px;         /* keep it usable on small screens */
+  background: rgba(10, 12, 20, 0.96);
+  padding: 1.5rem 1.75rem;
+  box-shadow: -12px 0 30px rgba(0, 0, 0, 0.7);
+}

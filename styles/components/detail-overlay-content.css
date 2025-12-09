@@ -1,0 +1,32 @@
+/* ========== DETAIL OVERLAY CONTENT ========== */
+
+.detail-overlay__body {
+  max-height: 100vh;
+  overflow-y: auto;
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+.detail-overlay__close {
+  position: absolute;
+  top: 0.9rem;
+  right: 1rem;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  font-size: 1.6rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.detail-overlay__close:hover {
+  color: var(--accent);
+  transform: scale(1.1);
+}
+
+/* Make the entire bottom-right panel feel like a trigger */
+.corner--bottom-right {
+  cursor: pointer;
+}
