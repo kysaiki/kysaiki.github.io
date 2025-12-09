@@ -416,8 +416,41 @@ const allProjects = [
     }
   });
 
-  // ---------- INIT ----------
+  // ---------- CV / RESUME DOWNLOAD HANDLERS ----------
 
+  function initCvDownloads() {
+    const buttons = document.querySelectorAll(".cv-download");
+    if (!buttons.length) return;
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        // Play click animation
+        btn.classList.remove("cv-download--animating");
+        // force reflow so animation can retrigger
+        // eslint-disable-next-line no-unused-expressions
+        btn.offsetWidth;
+        btn.classList.add("cv-download--animating");
+
+        const file = btn.getAttribute("data-file");
+        if (!file) return; // nothing to download
+
+        // Trigger a download if a file is specified
+        const link = document.createElement("a");
+        link.href = file;
+        link.download = "";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+      });
+
+      // Clean up animation class at end, so it can be reapplied
+      btn.addEventListener("animationend", () => {
+        btn.classList.remove("cv-download--animating");
+      });
+    });
+  }
+
+  // Call from init
   function init() {
     visibleProjects = [...allProjects];
     if (filterLabel) filterLabel.textContent = "All";
@@ -427,7 +460,12 @@ const allProjects = [
 
     // Start with no project-specific background (Bio is default)
     updateProjectBackground(null);
+
+    // NEW: wire up CV/Resume buttons
+    initCvDownloads();
   }
 
-  init();
+    init();
+
 })();
+

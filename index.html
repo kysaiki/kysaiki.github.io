@@ -83,21 +83,43 @@
 
       <!-- CV -->
       <article class="panel panel--cv">
-        <h2 class="panel__title">CV</h2>
-        <p class="panel__body">
-          Tools & Gameplay Programmer at 2K Games.
-        </p>
-        <p class="panel__body">
-          Previously at Gearbox Software and Visual Concepts, focused on Unreal Engine,
-          Slate tools, asset pipelines, and technical workflows.
-        </p>
-        <p class="panel__body">
-          B.S. in Computer Science (Games) — USC.
-        </p>
-        <p class="panel__body">
-          <a href="media/KylerSaiki_CV.pdf" target="_blank">Download full CV (PDF)</a>
-        </p>
+        <h2 class="panel__title">CV / Resume</h2>
+
+        <div class="cv-downloads">
+          <!-- CV icon -->
+          <button
+            type="button"
+            class="cv-download cv-download--cv"
+            data-file="media/KylerSaiki_CV.pdf"
+            aria-label="Download CV (PDF)"
+          >
+            <span class="cv-download__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="5" y="3" width="14" height="18" rx="2"></rect>
+                <path d="M9 7h6M9 11h6M9 15h3"></path>
+              </svg>
+            </span>
+            <span class="cv-download__label">CV</span>
+          </button>
+
+          <!-- Resume icon -->
+          <button
+            type="button"
+            class="cv-download cv-download--resume"
+            data-file="media/KylerSaiki_Resume.pdf"
+            aria-label="Download Resume (PDF)"
+          >
+            <span class="cv-download__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="4" y="3" width="16" height="18" rx="2"></rect>
+                <path d="M8 8h8M8 12h5M8 16h4"></path>
+              </svg>
+            </span>
+            <span class="cv-download__label">Resume</span>
+          </button>
+        </div>
       </article>
+
 
       <!-- CONTACT -->
       <article class="panel panel--contact">

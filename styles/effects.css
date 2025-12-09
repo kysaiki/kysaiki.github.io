@@ -54,3 +54,9 @@
     right: 1rem;
   }
 }
+
+@keyframes cvIconPop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}

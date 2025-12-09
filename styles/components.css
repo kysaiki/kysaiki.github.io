@@ -310,3 +310,82 @@ skill-filter-menu.is-open .skill-filter-option:nth-child(4) { animation-delay: 1
   border-color: var(--accent);
   transform: translateY(-1px);
 }
+
+/* ========== CV / RESUME DOWNLOAD ICONS ========== */
+
+.cv-downloads {
+  display: inline-flex;
+  gap: 0.9rem;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 0.75rem;
+}
+
+.cv-download {
+  border: none;
+  background: none;
+  color: var(--text);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  opacity: 0.9;
+  transition:
+    transform var(--transition-fast),
+    opacity var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.cv-download__icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 1px rgba(148,163,184,0.4);
+}
+
+.cv-download__icon svg {
+  width: 1.4rem;
+  height: 1.4rem;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  fill: none;
+}
+
+.cv-download__label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+}
+
+/* Subtle visual difference between CV vs Resume if you want */
+.cv-download--cv .cv-download__icon {
+  box-shadow: 0 0 0 1px rgba(56,189,248,0.8);
+}
+
+.cv-download--resume .cv-download__icon {
+  box-shadow: 0 0 0 1px rgba(96,165,250,0.8);
+}
+
+/* Hover + click animation state */
+.cv-download:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+.cv-download--animating {
+  animation: cvIconPop 260ms ease-out;
+}
+
+/* Hint text smaller / muted */
+.panel__body--hint {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 0.8rem;
+}
