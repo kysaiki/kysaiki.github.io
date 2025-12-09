@@ -1,0 +1,312 @@
+/* ========== IDENTITY & NAV ========== */
+
+.identity-block {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.identity-block__mark {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.4rem;
+  background: var(--accent);
+  color: #020617;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.identity-block__name {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.identity-block__role {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.corner-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.nav-link {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition:
+    color var(--transition-fast),
+    transform var(--transition-fast),
+    text-shadow var(--transition-fast);
+}
+
+.nav-link:hover {
+  color: var(--text);
+}
+
+/* Highlight active section */
+#section-bio:checked      ~ .layout .corner-nav label[for="section-bio"],
+#section-projects:checked ~ .layout .corner-nav label[for="section-projects"],
+#section-cv:checked       ~ .layout .corner-nav label[for="section-cv"],
+#section-contact:checked  ~ .layout .corner-nav label[for="section-contact"] {
+  color: var(--text);
+  font-weight: 500;
+  text-shadow: 0 0 12px rgba(56,189,248,0.6);
+}
+
+/* ========== CONTACT ICONS ========== */
+
+.contact-icons {
+  display: inline-flex;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.contact-icon {
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  text-decoration: none;
+  opacity: 0.9;
+  transition:
+    transform var(--transition-fast),
+    opacity var(--transition-fast);
+}
+
+.contact-icon svg {
+  width: 1.3rem;
+  height: 1.3rem;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  fill: none;
+}
+
+.contact-icon:hover {
+  transform: translateY(-2px);
+  opacity: 1;
+}
+
+/* ========== GLOBAL PROJECT FILTER (TOP-RIGHT) ========== */
+
+.projects-filter-root {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: none;
+  align-items: flex-end;      /* align content to the right/bottom of root */
+  justify-content: flex-end;
+  gap: 0.4rem;
+  z-index: 3;
+  text-align: right;
+}
+
+/* Only visible when Projects section is active */
+#section-projects:checked ~ .layout .projects-filter-root {
+  display: flex;
+}
+
+/* Filter button: text only, no border/background, right-aligned text */
+.skill-filter-toggle {
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;  /* text sits to the right */
+  text-align: right;
+  gap: 0.4rem;
+}
+
+.skill-filter-toggle:hover {
+  color: var(--text);
+  text-shadow: 0 0 8px rgba(148,163,184,0.7);
+}
+
+.skill-filter-label {
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.95rem;  /* NEW — increase size */
+}
+
+/* Minimal dropdown: no box, animated options */
+.skill-filter-menu {
+  position: absolute;
+  top: 2.4rem;
+  right: 0.1rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+  transition: opacity 160ms ease-out, transform 160ms ease-out;
+  text-align: right;
+}
+
+/* Opened state (JS adds .is-open) */
+.skill-filter-menu.is-open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.skill-filter-option {
+  display: block;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  text-align: right;          /* option text aligned right */
+  padding: 0.22rem 0;
+  font-size: 0.85rem;
+  cursor: pointer;
+  white-space: nowrap;
+  opacity: 0;                 /* start transparent, animates in */
+  text-align: right !important;
+  width: 100%;
+  display: block;
+}
+
+/* When menu opens, animate options with staggered delays */
+.skill-filter-menu.is-open .skill-filter-option {
+  animation: filterOptionDrop 200ms ease forwards;
+}
+
+.skill-filter-menu.is-open .skill-filter-option:nth-child(1) { animation-delay: 20ms; }
+.skill-filter-menu.is-open .skill-filter-option:nth-child(2) { animation-delay: 60ms; }
+.skill-filter-menu.is-open .skill-filter-option:nth-child(3) { animation-delay: 100ms; }
+skill-filter-menu.is-open .skill-filter-option:nth-child(4) { animation-delay: 140ms; }
+.skill-filter-menu.is-open .skill-filter-option:nth-child(5) { animation-delay: 180ms; }
+/* (extra options will still animate, just less staggered) */
+
+/* Hover / selected highlight */
+.skill-filter-option:hover {
+  color: var(--text);
+  text-shadow: 0 0 6px rgba(148,163,184,0.6);
+}
+
+.skill-filter-option.is-active {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* ========== BOTTOM-CENTER: DOTS + PREVIEW ========== */
+
+.projects-nav {
+  position: fixed;
+  bottom: 1.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 2;
+}
+
+/* Only show nav when Projects is active */
+#section-projects:checked ~ .layout .projects-nav {
+  display: flex;
+}
+
+.project-preview {
+  position: relative;
+  height: 160px;
+  width: 240px;
+  opacity: 0;
+  transition: opacity 200ms ease-out;
+  pointer-events: none;
+}
+
+/* Show thumbnail only when nav hovered */
+.projects-nav:hover .project-preview {
+  opacity: 1;
+}
+
+/* Thumbnail card */
+.project-preview__card {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 230px;
+  height: 150px;
+  border-radius: 14px;
+  padding: 0.7rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(56,189,248,0.9),
+      rgba(15,23,42,0.98)
+    );
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.project-preview__card--alt {
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(96,165,250,0.95),
+      rgba(15,23,42,0.98)
+    );
+}
+
+.project-preview__card.is-active {
+  opacity: 1;
+}
+
+.project-preview__title {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.project-preview__desc {
+  font-size: 0.88rem;
+  font-weight: 300;
+}
+
+/* dots */
+.project-dots {
+  display: inline-flex;
+  gap: 0.35rem;
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  border: 1px solid var(--text-muted);
+  cursor: pointer;
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.dot.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}

@@ -1,0 +1,53 @@
+/* ========== PANELS ========== */
+
+.panel {
+  display: none;
+}
+
+.panel__title {
+  margin: 0 0 0.6rem;
+  font-size: 1.05rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.panel__body {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+/* Section visibility */
+#section-bio:checked      ~ .layout .panel--bio      { display:block; }
+#section-projects:checked ~ .layout .panel--projects { display:block; }
+#section-cv:checked       ~ .layout .panel--cv       { display:block; }
+#section-contact:checked  ~ .layout .panel--contact  { display:block; }
+
+/* ========== PROJECT DESCRIPTION (RIGHT) ========== */
+
+.project-detail__item {
+  display: none;
+}
+
+.project-detail__item.is-active {
+  display: block;
+}
+
+.project-detail__title {
+  margin: 0 0 0.5rem;
+  font-size: 1.05rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.project-detail__body {
+  margin: 0 0 0.4rem;
+  font-size: 1rem;
+  font-weight: 300;
+  max-width: 360px;
+}
+
+/* Hide details when Projects not selected */
+#section-projects:not(:checked) ~ .layout .project-detail__item {
+  display: none !important;
+}

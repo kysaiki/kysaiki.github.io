@@ -1,0 +1,18 @@
+/* ========== CORNERS ========== */
+
+.corner {
+  position: fixed;
+  max-width: 460px;
+  z-index: 1;
+}
+
+.corner--top-left {
+  top: 2rem;
+  left: 2rem;
+}
+
+.corner--bottom-right {
+  bottom: 2rem;
+  right: 2rem;
+  text-align: right;
+}

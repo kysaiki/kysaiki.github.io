@@ -2,48 +2,60 @@
 
 const allProjects = [
   {
-    id: "hex",
-    title: "Hex Tile World Generator",
-    short: "Hex-based terrain, biomes, rivers, and towns.",
+    id: "gearbox-tools",
+    title: "Gearbox Tools & Pipeline",
+    short: "Internal Unreal tooling and production pipelines at Gearbox.",
     detail: [
-      "Unreal Engine editor tool that builds hex-based worlds with biomes, elevation, rivers, and settlement rules.",
-      "Designed for rapid iteration and fast layout experimentation for strategy / roguelite maps."
+      "Contributed to internal Gearbox tooling focused on Unreal Engine editor extensions, data workflows, and studio-specific pipelines.",
+      "Built and extended Slate-based tools that streamlined asset authoring, validation, and iteration for designers and artists.",
+      "Collaborated with engineers and content teams to improve reliability, debuggability, and UX of editor-facing systems."
+    ],
+    variant: "alt",  // uses the blue-ish alt card style
+    skills: ["Gearbox", "Unreal Engine", "Slate", "Tools", "Pipelines"],
+    bgGif: "media/bg-gbx.jpg" // optional if you later add a Gearbox-specific background
+  },
+  // 🔥 NBA 2K26 project
+  {
+    id: "nba2k26",
+    title: "NBA 2K26 — Engineering",
+    short: "Production tools & game systems for NBA 2K26.",
+    detail: [
+      "Contributed to NBA 2K26 engineering, focusing on tools, workflows, and systems that support large-scale sports development.",
+      "Built and refined pipelines that improve iteration speed for designers, artists, and gameplay engineers."
     ],
     variant: "primary",
-    skills: ["Unreal Engine", "C++", "Procedural Gen", "Tools"]
-    // image: "media/projects/hex.jpg",
-    // video: "media/projects/hex.mp4"
-  },
-  {
-    id: "item",
-    title: "Item Display Editor",
-    short: "Unreal editor for authoring character item visuals.",
-    detail: [
-      "Slate-based asset editor for previewing equipment attachments and defining item display metadata.",
-      "Centralizes loadout visuals so designers adjust gear without touching scenes or code."
-    ],
-    variant: "alt",
-    skills: ["Unreal Engine", "Slate", "UI", "Tools"]
-    // image: "media/projects/item.jpg"
+    skills: ["2K", "Tools", "Production", "C++"],
+    bgGif: "media/bg-nba-2k26.jpg"   // 👈 exact filename & path
   }
-  // Add more projects here with skills[], and optionally image/video.
+  // Add more projects here with skills[], and optionally image/video/bgGif.
 ];
 
 
-// ========== CAROUSEL + FILTER ==========
+// ========== CAROUSEL + FILTER + KEYBOARD ==========
 
 (function () {
   const dotsEl          = document.getElementById("project-dots");
   const previewEl       = document.getElementById("project-preview");
   const detailEl        = document.getElementById("project-detail");
+  const sectionBio      = document.getElementById("section-bio");
   const sectionProjects = document.getElementById("section-projects");
+  const sectionCV       = document.getElementById("section-cv");
+  const sectionContact  = document.getElementById("section-contact");
   const projectsNav     = document.querySelector(".projects-nav");
   const filterRoot      = document.querySelector(".projects-filter-root");
   const filterMenu      = document.getElementById("skill-filter-menu");
   const filterLabel     = document.getElementById("skill-filter-label");
   const filterToggle    = document.getElementById("skill-filter-toggle");
+  const projectBgEl     = document.getElementById("project-bg-overlay");
 
   if (!dotsEl || !previewEl || !detailEl || !sectionProjects || !projectsNav) return;
+
+  const sectionOrder = [
+    sectionBio,
+    sectionProjects,
+    sectionCV,
+    sectionContact
+  ];
 
   let visibleProjects = [...allProjects];
   let activeIndex = 0;
@@ -52,6 +64,7 @@ const allProjects = [
   let autoRotateTimer = null;
 
   let menuOpen = false;
+  let menuPinned = false;
 
   function openMenu() {
     if (!filterMenu) return;
@@ -62,7 +75,26 @@ const allProjects = [
   function closeMenu() {
     if (!filterMenu) return;
     menuOpen = false;
+    menuPinned = false;
     filterMenu.classList.remove("is-open");
+  }
+
+  // ---------- PROJECT BACKGROUND OVERLAY ----------
+
+  function updateProjectBackground(projectOrNull) {
+    if (!projectBgEl) return;
+
+    const project = projectOrNull || null;
+
+    if (project && project.bgGif) {
+      const url = project.bgGif;
+      projectBgEl.style.backgroundImage =
+        `radial-gradient(circle at center, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.9) 100%), url("${url}")`;
+      projectBgEl.classList.add("project-bg-overlay--visible");
+    } else {
+      projectBgEl.classList.remove("project-bg-overlay--visible");
+      projectBgEl.style.backgroundImage = "";
+    }
   }
 
   // ---------- FILTER ----------
@@ -105,6 +137,7 @@ const allProjects = [
     activeSkill = skill;
     userLocked = true; // user explicitly filtered → pause auto-rotate
 
+    // Replace button label with selected filter text (still prefixed with "Filter:" in HTML)
     if (filterLabel) {
       filterLabel.textContent = activeSkill || "All";
     }
@@ -132,6 +165,7 @@ const allProjects = [
       msg.textContent = "No projects tagged with this skill yet.";
       detailEl.appendChild(msg);
       previewEl.innerHTML = "";
+      updateProjectBackground(null);
       return;
     }
 
@@ -199,11 +233,21 @@ const allProjects = [
   }
 
   // ---------- THUMBNAIL (CROSSFADE) ----------
-  // (right now it's title + short text; see notes below for how to plug in image/video)
+  // Currently just title + short. You can plug in image/video media if you want.
 
   function showThumbnail(index) {
     const project = visibleProjects[index];
-    if (!project) return;
+    if (!project) {
+      updateProjectBackground(null);
+      return;
+    }
+
+    // Update project-specific background only while on Projects
+    if (sectionProjects && sectionProjects.checked) {
+      updateProjectBackground(project);
+    } else {
+      updateProjectBackground(null);
+    }
 
     const prev = previewEl.querySelector(".project-preview__card.is-active");
     if (prev) {
@@ -255,31 +299,122 @@ const allProjects = [
   }
 
   // When projects tab is reselected, allow auto-rotation again
-  sectionProjects.addEventListener("change", () => {
-    userLocked = false;
-  });
+  if (sectionProjects) {
+    sectionProjects.addEventListener("change", () => {
+      userLocked = false;
+      // Ensure background matches current project when returning
+      const project = visibleProjects[activeIndex] || null;
+      updateProjectBackground(project);
+    });
+  }
 
   // ---------- FILTER BUTTON + DROPDOWN BEHAVIOR ----------
 
   if (filterRoot && filterMenu && filterToggle) {
-    // Hover opens (and keeps) menu
+    // Hover opens the menu
     filterRoot.addEventListener("mouseenter", () => {
       openMenu();
     });
 
-    // Clicking filter keeps it open (no toggle close)
+    // Mouse leaving closes the menu only if not pinned by click
+    filterRoot.addEventListener("mouseleave", () => {
+      if (!menuPinned) {
+        closeMenu();
+      }
+    });
+
+    // Clicking filter pins it open (stays open until click outside)
     filterToggle.addEventListener("click", (e) => {
       e.stopPropagation();
+      menuPinned = true;
       openMenu();
     });
 
-    // Clicking anywhere outside filterRoot closes the menu
+    // Clicking anywhere outside filterRoot closes and unpins
     document.addEventListener("click", (e) => {
       if (!filterRoot.contains(e.target)) {
         closeMenu();
       }
     });
   }
+
+  // ---------- KEYBOARD NAVIGATION ----------
+
+  function changeSection(delta) {
+    const currentIndex = sectionOrder.findIndex(r => r && r.checked);
+    const safeIndex = currentIndex === -1 ? 0 : currentIndex;
+    const len = sectionOrder.length;
+    const nextIndex = (safeIndex + delta + len) % len;
+    const nextRadio = sectionOrder[nextIndex];
+    if (nextRadio) {
+      nextRadio.checked = true;
+      nextRadio.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+
+    // Show project background if we land on Projects; otherwise hide it
+    if (nextRadio === sectionProjects) {
+      const project = visibleProjects[activeIndex] || null;
+      updateProjectBackground(project);
+    } else {
+      updateProjectBackground(null);
+    }
+  }
+
+  function changeProject(delta) {
+    if (!sectionProjects.checked) return;
+    if (visibleProjects.length === 0) return;
+
+    userLocked = true;
+    const len = visibleProjects.length;
+    const next = (activeIndex + delta + len) % len;
+    setActiveProject(next);
+    showThumbnail(next);
+  }
+
+  window.addEventListener("keydown", (e) => {
+    const key = e.key;
+
+    if (!["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(key)) {
+      return;
+    }
+
+    // Don't hijack typing in inputs/textareas/contentEditable
+    const target = e.target;
+    if (
+      target &&
+      (target.tagName === "INPUT" ||
+       target.tagName === "TEXTAREA" ||
+       target.isContentEditable)
+    ) {
+      return;
+    }
+
+    if (key === "ArrowUp") {
+      e.preventDefault();
+      changeSection(-1);
+      closeMenu();
+      return;
+    }
+
+    if (key === "ArrowDown") {
+      e.preventDefault();
+      changeSection(1);
+      closeMenu();
+      return;
+    }
+
+    if (sectionProjects.checked && key === "ArrowLeft") {
+      e.preventDefault();
+      changeProject(-1);
+      return;
+    }
+
+    if (sectionProjects.checked && key === "ArrowRight") {
+      e.preventDefault();
+      changeProject(1);
+      return;
+    }
+  });
 
   // ---------- INIT ----------
 
@@ -289,6 +424,9 @@ const allProjects = [
     buildSkillFilterMenu();
     renderProjects();
     startAutoRotate();
+
+    // Start with no project-specific background (Bio is default)
+    updateProjectBackground(null);
   }
 
   init();
