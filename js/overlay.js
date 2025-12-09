@@ -2,7 +2,7 @@
 // ========== DETAIL OVERLAY (BIO / PROJECTS) ==========
 
 export function initOverlay(projectState) {
-  const { getAllProjects, getVisibleProjects, getSectionState } = projectState;
+  const { getSectionState } = projectState;
   const { sectionBio, sectionProjects } = getSectionState();
 
   const bottomRightCorner = document.querySelector(".corner--bottom-right");
@@ -13,6 +13,17 @@ export function initOverlay(projectState) {
   const overlayContentEl  = document.querySelector(".detail-overlay__content");
 
   let overlayOpen = false;
+  let currentProject = null;
+
+  // Track current project from projects.js
+  window.addEventListener("projectChange", (e) => {
+    currentProject = e.detail.project || null;
+
+    // If overlay is already open on Projects, live-update content
+    if (overlayOpen && sectionProjects && sectionProjects.checked) {
+      renderProjectOverlayContent();
+    }
+  });
 
   // ---------- OVERLAY CONTENT RENDERERS ----------
 
@@ -90,71 +101,41 @@ export function initOverlay(projectState) {
     overlayBodyEl.appendChild(wrapper);
   }
 
-  function renderProjectsOverlayContent() {
+  function renderProjectOverlayContent() {
     if (!overlayBodyEl) return;
     overlayBodyEl.innerHTML = "";
 
-    const wrapper = document.createElement("div");
-    wrapper.className = "overlay-section overlay-section--projects";
+    // No project selected yet (should be rare, but safe)
+    if (!currentProject) {
+      const msg = document.createElement("p");
+      msg.textContent = "No project selected.";
+      overlayBodyEl.appendChild(msg);
+      return;
+    }
 
-    const title = document.createElement("h2");
-    title.textContent = "Projects Overview";
-    title.className = "overlay-title";
-    wrapper.appendChild(title);
+    // Use explicit overlayTemplateId if present, otherwise fall back to overlay-{id}
+    const templateId =
+      currentProject.overlayTemplateId || `overlay-${currentProject.id}`;
 
-    const subtitle = document.createElement("p");
-    subtitle.className = "overlay-text overlay-text--muted";
-    subtitle.textContent =
-      "Filtered by the active skill selection. Hover dots below to preview, or skim the grid here.";
-    wrapper.appendChild(subtitle);
+    const tpl = document.getElementById(templateId);
+    if (!tpl) {
+      const msg = document.createElement("p");
+      msg.textContent = "Detailed view coming soon.";
+      overlayBodyEl.appendChild(msg);
+      return;
+    }
 
-    const grid = document.createElement("div");
-    grid.className = "overlay-project-grid";
-
-    const visible = getVisibleProjects();
-    const source = visible.length ? visible : getAllProjects();
-
-    source.forEach((project) => {
-      const card = document.createElement("article");
-      card.className = "overlay-project-card";
-
-      const h3 = document.createElement("h3");
-      h3.className = "overlay-project-card__title";
-      h3.textContent = project.title;
-      card.appendChild(h3);
-
-      const p = document.createElement("p");
-      p.className = "overlay-project-card__body";
-      p.textContent = project.short;
-      card.appendChild(p);
-
-      if (project.skills && project.skills.length) {
-        const tags = document.createElement("div");
-        tags.className = "overlay-project-card__tags";
-
-        project.skills.forEach((skill) => {
-          const tag = document.createElement("span");
-          tag.className = "overlay-tag";
-          tag.textContent = skill;
-          tags.appendChild(tag);
-        });
-
-        card.appendChild(tags);
-      }
-
-      grid.appendChild(card);
-    });
-
-    wrapper.appendChild(grid);
-    overlayBodyEl.appendChild(wrapper);
+    const clone = tpl.content.cloneNode(true);
+    overlayBodyEl.appendChild(clone);
   }
 
   function renderOverlayContent() {
     if (!isBioOrProjectsActive()) return;
+
     if (sectionBio && sectionBio.checked) {
       renderBioOverlayContent();
     } else if (sectionProjects && sectionProjects.checked) {
-      renderProjectsOverlayContent();
+      renderProjectOverlayContent();
     }
   }
 
@@ -183,6 +164,11 @@ export function initOverlay(projectState) {
 
     overlayOpen = true;
 
+    // NEW: broadcast that overlay is now open
+    window.dispatchEvent(
+      new CustomEvent("overlayOpenChange", { detail: { open: true } })
+    );
+
     // Animate panel out to the right
     activePanel.classList.add("panel--exit-right");
 
@@ -198,6 +184,11 @@ export function initOverlay(projectState) {
   function closeDetailOverlay() {
     if (!overlayEl || !overlayOpen) return;
     overlayOpen = false;
+
+    // NEW: broadcast that overlay is now closed
+    window.dispatchEvent(
+      new CustomEvent("overlayOpenChange", { detail: { open: false } })
+    );
 
     overlayEl.classList.remove("detail-overlay--visible");
 

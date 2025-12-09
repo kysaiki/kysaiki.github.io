@@ -17,6 +17,7 @@
   display: flex;
 }
 
+/* Container (you likely already have this) */
 .project-preview {
   position: relative;
   height: 160px;
@@ -26,55 +27,131 @@
   pointer-events: none;
 }
 
-/* Show thumbnail only when nav hovered */
+/* Show thumbnail only when nav hovered (existing behavior) */
 .projects-nav:hover .project-preview {
   opacity: 1;
 }
 
-/* Thumbnail card */
 .project-preview__card {
   position: absolute;
   inset: 0;
   margin: auto;
   width: 230px;
   height: 150px;
+
   border-radius: 14px;
-  padding: 0.7rem 0.85rem;
+
+  /* Thin, translucent border */
+  border: 1px solid rgba(0, 0, 0, 0.4);
+
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  background:
-    linear-gradient(
-      to bottom,
-      rgba(56,189,248,0.9),
-      rgba(15,23,42,0.98)
-    );
+
+  /* Blurred glass background behind image */
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
   opacity: 0;
-  transition: opacity 1s ease;
+  transform: translateY(4px) scale(0.98);
+  transition:
+    opacity 220ms ease-out,
+    transform 220ms ease-out,
+    box-shadow 220ms ease-out,
+    border-color 220ms ease-out;
 }
 
-.project-preview__card--alt {
-  background:
-    linear-gradient(
-      to bottom,
-      rgba(96,165,250,0.95),
-      rgba(15,23,42,0.98)
-    );
-}
-
+/* Active card fades in */
 .project-preview__card.is-active {
   opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Leaving card fades out */
+.project-preview__card.is-leaving {
+  opacity: 0;
+  transform: translateY(-4px) scale(0.97);
+}
+
+/* SOFT GLOW ON HOVER (only the current active card) */
+.projects-nav:hover .project-preview__card.is-active {
+  box-shadow:
+    0 0 0 1px rgba(148, 163, 184, 0.4),
+    0 12px 28px rgba(15, 23, 42, 0.9),
+    0 0 18px rgba(56, 189, 248, 0.35);
+  border-color: rgba(148, 163, 184, 0.7);
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* Image fills the entire card */
+.project-preview__image-wrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.project-preview__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  /* ensure smoothness during fade */
+  display: block;
+}
+
+/* Text sits on top of the image */
+.project-preview__text {
+  position: relative;
+  z-index: 2;
+
+  padding: 0.55rem 0.75rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+/* NEW: dark gradient overlay behind the text */
+.project-preview__card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
+  /* bottom-weighted fade for readability */
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 40%,
+    rgba(0, 0, 0, 0.55) 75%,
+    rgba(0, 0, 0, 0.85) 100%
+  );
+  pointer-events: none;
 }
 
 .project-preview__title {
-  font-size: 0.95rem;
-  font-weight: 500;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
 .project-preview__desc {
-  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.78rem;
   font-weight: 300;
 }
+
+/* Parallax: image moves slightly up, text slightly down */
+.projects-nav:hover .project-preview__card.is-active .project-preview__image-wrapper {
+  transform: translateY(-4px) scale(1.05);
+}
+
+.projects-nav:hover .project-preview__card.is-active .project-preview__text {
+  transform: translateY(2px);
+}
+
+
 
 /* dots */
 .project-dots {
@@ -98,4 +175,60 @@
   background: var(--accent);
   border-color: var(--accent);
   transform: translateY(-1px);
+}
+
+.project-preview__image-wrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+  transition: transform 260ms ease-out;
+}
+
+.project-preview__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Gradient behind text (darkens the bottom) */
+.project-preview__card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 45%,
+    rgba(0, 0, 0, 0.5) 75%,
+    rgba(0, 0, 0, 0.9) 100%
+  );
+  pointer-events: none;
+}
+
+/* Text block sits above image + gradient */
+.project-preview__text {
+  position: relative;
+  z-index: 2;
+  padding: 0.55rem 0.75rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+
+  will-change: transform;
+  transition: transform 260ms ease-out;
+}
+
+.project-preview__title {
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.project-preview__desc {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.78rem;
+  font-weight: 300;
 }

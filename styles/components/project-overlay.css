@@ -1,0 +1,174 @@
+/* ========== PROJECT DETAIL OVERLAY LAYOUT ========== */
+
+.proj-overlay {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+/* Hero row: image + text */
+.proj-overlay__hero {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: 1.5rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.proj-overlay__hero-media img {
+  width: 100%;
+  display: block;
+  border-radius: 1rem;
+  object-fit: cover;
+}
+
+.proj-overlay__hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.proj-overlay__title {
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+.proj-overlay__tagline {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+/* Hero links (Steam / Console / Docs etc.) */
+.proj-overlay__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.4rem;
+}
+
+.proj-overlay__link {
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.proj-overlay__link:hover {
+  background: rgba(15, 23, 42, 0.9);
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+/* ========== COMMON SECTIONS ========== */
+
+.proj-overlay__section {
+  padding: 1.15rem 0;
+  border-top: 1px solid rgba(148, 163, 184, 0.18);
+}
+
+.proj-overlay__section:first-of-type {
+  border-top: none;
+  padding-top: 0.5rem;
+}
+
+.proj-overlay__section-title {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+  margin-bottom: 0.55rem;
+}
+
+.proj-overlay__body {
+  margin: 0.35rem 0;
+  line-height: 1.6;
+}
+
+/* ========== PROJECT INFO GRID (Role / Team / Time / Engine) ========== */
+
+.proj-overlay__info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem 1.5rem;
+  margin-top: 0.3rem;
+}
+
+.proj-overlay__info-grid dt {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+}
+
+.proj-overlay__info-grid dd {
+  margin: 0.15rem 0 0;
+}
+
+/* ========== CONTRIBUTIONS LIST ========== */
+
+.proj-overlay__list {
+  margin: 0.2rem 0 0;
+  padding-left: 1.2rem;
+}
+
+.proj-overlay__list li {
+  margin-bottom: 0.35rem;
+  line-height: 1.5;
+}
+
+/* Optional tags if you add them later */
+.proj-overlay__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+}
+
+.proj-overlay__tag {
+  font-size: 0.75rem;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.6);
+}
+
+/* ========== RESPONSIVE ========== */
+
+@media (max-width: 768px) {
+  .proj-overlay__hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .proj-overlay__hero-media {
+    order: -1; /* you can flip this per project with inline styles if needed */
+  }
+}
+
+/* ========== PROJECT OVERLAY SCROLLING ========== */
+
+.proj-overlay__hero {
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  padding-bottom: 1rem;
+  z-index: 3;
+}
+
+.proj-overlay {
+  overflow-y: auto;
+  max-height: calc(100vh - 2rem);
+}

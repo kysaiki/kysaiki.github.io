@@ -1,10 +1,11 @@
-/* ========== DETAIL OVERLAY CONTENT ========== */
+/* ========== DETAIL OVERLAY CONTENT SHELL ========== */
 
 .detail-overlay__body {
   max-height: 100vh;
   overflow-y: auto;
   color: var(--text);
   font-size: 0.95rem;
+  padding-right: 0.25rem; /* small buffer so scrollbar doesn't hug text */
 }
 
 .detail-overlay__close {
@@ -29,4 +30,82 @@
 /* Make the entire bottom-right panel feel like a trigger */
 .corner--bottom-right {
   cursor: pointer;
+}
+
+/* ========== GENERIC OVERLAY TYPOGRAPHY / SECTIONS ========== */
+
+.overlay-section {
+  padding: 1.25rem 0;
+  border-top: 1px solid rgba(148, 163, 184, 0.18);
+}
+
+.overlay-section:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.overlay-section--bio {
+  max-width: 640px;
+}
+
+.overlay-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+
+.overlay-subtitle {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+  margin: 1.1rem 0 0.6rem;
+}
+
+.overlay-text {
+  margin: 0.5rem 0;
+  line-height: 1.6;
+}
+
+.overlay-text--muted {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* ========== BIO TIMELINE ========== */
+
+.overlay-timeline {
+  list-style: none;
+  padding: 0;
+  margin: 0.4rem 0 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.overlay-timeline__item {
+  display: grid;
+  grid-template-columns: minmax(0, 140px) minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.overlay-timeline__label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.overlay-timeline__text {
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Stack on small screens */
+@media (max-width: 640px) {
+  .overlay-timeline__item {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

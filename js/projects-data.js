@@ -1,3 +1,4 @@
+// js/projects-data.js
 // ========== PROJECT DATA ==========
 
 export const allProjects = [
@@ -12,7 +13,8 @@ export const allProjects = [
     ],
     variant: "alt",
     skills: ["Gearbox", "Unreal Engine", "Slate", "Tools", "Pipelines"],
-    bgGif: "media/bg-gbx.jpg"
+    bgGif: "media/bg-gbx.jpg",
+    overlayTemplateId: "overlay-gearbox-tools"
   },
   {
     id: "nba2k26",
@@ -24,7 +26,8 @@ export const allProjects = [
     ],
     variant: "primary",
     skills: ["2K", "Tools", "Production", "C++"],
-    bgGif: "media/bg-nba-2k26.jpg"
+    bgGif: "media/bg-nba-2k26.jpg",
+    overlayTemplateId: "overlay-nba2k26"
   },
   {
     id: "egregore",
@@ -36,7 +39,8 @@ export const allProjects = [
     ],
     variant: "primary",
     skills: ["Gameplay", "Unreal Engine", "Tools"],
-    bgGif: "media/bg-egregore2.png"
+    bgGif: "media/bg-egregore2.png",
+    overlayTemplateId: "overlay-egregore"
   },
   {
     id: "couchwizards",
@@ -48,6 +52,7 @@ export const allProjects = [
     ],
     variant: "primary",
     skills: ["Gameplay", "Unreal Engine", "Solo Dev"],
-    bgGif: "media/bg-egregore2.png"
+    bgGif: "media/bg-egregore2.png",
+    overlayTemplateId: "overlay-couchwizards"
   }
 ];

@@ -51,6 +51,16 @@ export function initProjects(allProjects) {
 
   let menuOpen = false;
   let menuPinned = false;
+  let overlayOpen = false; // track overlay state
+  let thumbnailTimer = null;
+
+  // Listen for overlay open/close so we can freeze auto-rotate
+  window.addEventListener("overlayOpenChange", (e) => {
+    overlayOpen = !!(e.detail && e.detail.open);
+    if (overlayOpen) {
+      userLocked = true; // hard-freeze rotation while overlay visible
+    }
+  });
 
   // ---------- PROJECT BACKGROUND OVERLAY ----------
 
@@ -160,18 +170,20 @@ export function initProjects(allProjects) {
       dot.className = "dot";
       dot.dataset.index = index.toString();
 
+      // HOVER → ONLY update thumbnail
       dot.addEventListener("mouseenter", () => {
         userLocked = true;
-        setActiveProject(index);
-        showThumbnail(index);
+        showThumbnail(index);   // only swaps the thumbnail
       });
 
+      // CLICK → change active project + background + thumbnail
       dot.addEventListener("click", (e) => {
         e.stopPropagation();
         userLocked = true;
-        setActiveProject(index);
-        showThumbnail(index);
+        setActiveProject(index); // updates background + right panel + overlay state
+        showThumbnail(index);    // shows thumbnail for the new active project
       });
+
 
       dotsEl.appendChild(dot);
 
@@ -215,51 +227,74 @@ export function initProjects(allProjects) {
     items.forEach((item, i) => {
       item.classList.toggle("is-active", i === index);
     });
+
+    // NEW: background follows the *active* project only
+    const project = visibleProjects[activeIndex] || null;
+    updateProjectBackground(project);
+
+    // Broadcast active project so overlay.js can render per-project content
+    window.dispatchEvent(
+      new CustomEvent("projectChange", {
+        detail: { project }
+      })
+    );
   }
 
   // ---------- THUMBNAIL (CROSSFADE) ----------
 
   function showThumbnail(index) {
     const project = visibleProjects[index];
-    if (!project) {
-      updateProjectBackground(null);
-      return;
+    if (!project) return;
+
+    // Clear any pending hover change so fast moves don't spam transitions
+    if (thumbnailTimer) {
+      clearTimeout(thumbnailTimer);
+      thumbnailTimer = null;
     }
 
-    updateProjectBackground(project);
+    // Small delay so quick passes over dots don't constantly swap
+    thumbnailTimer = setTimeout(() => {
+      const prev = previewEl.querySelector(".project-preview__card");
+      if (prev) {
+        prev.classList.remove("is-active");
+        prev.classList.add("is-leaving");
+        prev.addEventListener(
+          "transitionend",
+          () => prev.remove(),
+          { once: true }
+        );
+      }
 
-    const prev = previewEl.querySelector(".project-preview__card.is-active");
-    if (prev) {
-      prev.classList.remove("is-active");
-      prev.addEventListener(
-        "transitionend",
-        () => prev.remove(),
-        { once: true }
-      );
-    }
+      const card = document.createElement("div");
+      card.className =
+        "project-preview__card" +
+        (project.variant === "alt" ? " project-preview__card--alt" : "");
 
-    const card = document.createElement("div");
-    card.className =
-      "project-preview__card" +
-      (project.variant === "alt" ? " project-preview__card--alt" : "");
+      // Use bgGif as the thumbnail image if available
+      const imageSrc = project.bgGif || "";
 
-    const title = document.createElement("div");
-    title.className = "project-preview__title";
-    title.textContent = project.title;
+      card.innerHTML = `
+        <div class="project-preview__image-wrapper">
+          ${imageSrc
+            ? `<img class="project-preview__image" src="${imageSrc}" alt="${project.title} thumbnail" />`
+            : ""}
+        </div>
+        <div class="project-preview__text">
+          <div class="project-preview__title">${project.title}</div>
+          <div class="project-preview__desc">${project.short}</div>
+        </div>
+      `;
 
-    const desc = document.createElement("div");
-    desc.className = "project-preview__desc";
-    desc.textContent = project.short;
+      previewEl.appendChild(card);
 
-    card.appendChild(title);
-    card.appendChild(desc);
-
-    previewEl.appendChild(card);
-
-    requestAnimationFrame(() => {
-      card.classList.add("is-active");
-    });
+      // Trigger fade-in on the next frame
+      requestAnimationFrame(() => {
+        card.classList.add("is-active");
+      });
+    }, 120); // ~120ms feels responsive but not twitchy
   }
+
+
 
   // ---------- AUTO-ROTATE ----------
 
@@ -268,12 +303,13 @@ export function initProjects(allProjects) {
 
     autoRotateTimer = setInterval(() => {
       if (!sectionProjects || !sectionProjects.checked) return;
+      if (overlayOpen) return;    // do not rotate while overlay is on
       if (userLocked) return;
       if (visibleProjects.length <= 1) return;
 
       const next = (activeIndex + 1) % visibleProjects.length;
-      setActiveProject(next);
-      showThumbnail(next);
+      setActiveProject(next);   // updates background + event
+      showThumbnail(next);      // updates thumbnail only
     }, 5000);
   }
 
