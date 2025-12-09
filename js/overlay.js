@@ -2,8 +2,9 @@
 // ========== DETAIL OVERLAY (BIO / PROJECTS) ==========
 
 export function initOverlay(projectState) {
-  const { getSectionState } = projectState;
+  const { getSectionState, getVisibleProjects } = projectState;
   const { sectionBio, sectionProjects } = getSectionState();
+
 
   const bottomRightCorner = document.querySelector(".corner--bottom-right");
   const overlayEl         = document.getElementById("detail-overlay");
@@ -25,6 +26,32 @@ export function initOverlay(projectState) {
     }
   });
 
+  // ---------- BIO TIMELINE SCROLL / FADE-IN ----------
+
+  function initBioTimelineAnimations(rootEl) {
+    if (!rootEl || !("IntersectionObserver" in window)) return;
+
+    const events = rootEl.querySelectorAll(".bio-timeline__event");
+    if (!events.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            obs.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        root: overlayBodyEl, // scroll container
+        threshold: 0.2
+      }
+    );
+
+    events.forEach((el) => observer.observe(el));
+  }
+
   // ---------- OVERLAY CONTENT RENDERERS ----------
 
   function isBioOrProjectsActive() {
@@ -36,76 +63,37 @@ export function initOverlay(projectState) {
     if (!overlayBodyEl) return;
     overlayBodyEl.innerHTML = "";
 
-    const wrapper = document.createElement("div");
-    wrapper.className = "overlay-section overlay-section--bio";
+    const tpl = document.getElementById("overlay-bio");
+    if (!tpl) {
+      // Fallback if template is missing
+      const p = document.createElement("p");
+      p.textContent =
+        'Bio overlay template not found. Add <template id="overlay-bio"> to index.html.';
+      overlayBodyEl.appendChild(p);
+      return;
+    }
 
-    const title = document.createElement("h2");
-    title.textContent = "More About Me";
-    title.className = "overlay-title";
-    wrapper.appendChild(title);
+    const clone = tpl.content.cloneNode(true);
+    overlayBodyEl.appendChild(clone);
 
-    const intro = document.createElement("p");
-    intro.className = "overlay-text";
-    intro.textContent =
-      "I'm a game programmer and tools engineer who likes building systems that make other developers faster and happier.";
-    wrapper.appendChild(intro);
-
-    const timelineTitle = document.createElement("h3");
-    timelineTitle.textContent = "Journey So Far";
-    timelineTitle.className = "overlay-subtitle";
-    wrapper.appendChild(timelineTitle);
-
-    const timeline = document.createElement("ul");
-    timeline.className = "overlay-timeline";
-
-    const entries = [
-      {
-        label: "2024 — USC",
-        text: "Graduated from the University of Southern California with a B.S. in Computer Science (Games)."
-      },
-      {
-        label: "2024–2025 — Visual Concepts & Gearbox",
-        text: "Rotations on internal tools, pipelines, and gameplay-support systems across multiple AAA studios."
-      },
-      {
-        label: "Now — 2K Games Engineering Grad Program",
-        text: "Focusing on Unreal Engine tools, automation, and workflows that support large production teams."
-      }
-    ];
-
-    entries.forEach(({ label, text }) => {
-      const li = document.createElement("li");
-      li.className = "overlay-timeline__item";
-
-      const badge = document.createElement("div");
-      badge.className = "overlay-timeline__label";
-      badge.textContent = label;
-
-      const body = document.createElement("p");
-      body.className = "overlay-timeline__text";
-      body.textContent = text;
-
-      li.appendChild(badge);
-      li.appendChild(body);
-      timeline.appendChild(li);
-    });
-
-    wrapper.appendChild(timeline);
-
-    const now = document.createElement("p");
-    now.className = "overlay-text overlay-text--muted";
-    now.textContent =
-      "When I’m not working on tools or gameplay, I’m usually experimenting in the kitchen, sketching, or bouldering.";
-    wrapper.appendChild(now);
-
-    overlayBodyEl.appendChild(wrapper);
+    // Enable scroll-based fade-in for timeline events
+    initBioTimelineAnimations(overlayBodyEl);
   }
 
   function renderProjectOverlayContent() {
     if (!overlayBodyEl) return;
     overlayBodyEl.innerHTML = "";
 
-    // No project selected yet (should be rare, but safe)
+    // If we don't yet know the current project (e.g. overlay initialized after projects),
+    // fall back to the first visible project.
+    if (!currentProject && typeof getVisibleProjects === "function") {
+      const visible = getVisibleProjects() || [];
+      if (visible.length > 0) {
+        currentProject = visible[0];
+      }
+    }
+
+    // Still nothing? Show a safe message.
     if (!currentProject) {
       const msg = document.createElement("p");
       msg.textContent = "No project selected.";
@@ -128,6 +116,7 @@ export function initOverlay(projectState) {
     const clone = tpl.content.cloneNode(true);
     overlayBodyEl.appendChild(clone);
   }
+
 
   function renderOverlayContent() {
     if (!isBioOrProjectsActive()) return;
@@ -164,7 +153,7 @@ export function initOverlay(projectState) {
 
     overlayOpen = true;
 
-    // NEW: broadcast that overlay is now open
+    // Broadcast that overlay is now open (projects.js listens to freeze auto-rotate)
     window.dispatchEvent(
       new CustomEvent("overlayOpenChange", { detail: { open: true } })
     );
@@ -185,7 +174,7 @@ export function initOverlay(projectState) {
     if (!overlayEl || !overlayOpen) return;
     overlayOpen = false;
 
-    // NEW: broadcast that overlay is now closed
+    // Broadcast that overlay is now closed
     window.dispatchEvent(
       new CustomEvent("overlayOpenChange", { detail: { open: false } })
     );

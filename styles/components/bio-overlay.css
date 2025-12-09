@@ -1,0 +1,224 @@
+/* ========== BIO OVERLAY LAYOUT ========== */
+
+/* Constrain bio overlay so it doesn't stretch too wide.
+   Project overlays keep their own sizing via proj-overlay styles. */
+.overlay-section--bio {
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+/* ========== BIO OVERLAY HERO ========== */
+
+.bio-hero {
+  padding-bottom: 1rem;
+}
+
+.bio-hero__title {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+  margin: 0 0 0.35rem;
+}
+
+.bio-hero__name {
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin: 0 0 0.6rem;
+}
+
+.bio-hero__desc {
+  margin: 0 0 0.75rem;
+  line-height: 1.7;
+  font-size: 0.98rem;
+}
+
+.bio-hero__skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  padding: 0;
+  margin: 0.5rem 0 0;
+  list-style: none;
+}
+
+.bio-hero__skills li {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  padding: 0.18rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  background: rgba(15, 23, 42, 0.92);
+}
+
+/* ========== HOBBIES SECTION ========== */
+
+.bio-hobbies {
+  margin-top: 1.4rem;
+  margin-bottom: 0.8rem;
+}
+
+.bio-hobbies__title {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+  margin: 0 0 0.4rem;
+}
+
+.bio-hobbies__text {
+  margin: 0 0 0.55rem;
+  line-height: 1.6;
+  font-size: 0.93rem;
+}
+
+.bio-hobbies__list {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* ========== VERTICAL TIMELINE ========== */
+
+.bio-timeline {
+  position: relative;
+  margin-top: 1.25rem;
+  padding-left: 1.75rem;
+  padding-bottom: 1rem;
+}
+
+/* Vertical line */
+.bio-timeline__line {
+  position: absolute;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  left: 0.45rem;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    rgba(148, 163, 184, 0.7),
+    rgba(30, 64, 175, 0.5)
+  );
+}
+
+/* Year grouping */
+.bio-timeline__year-block {
+  margin-bottom: 1.5rem;
+}
+
+.bio-timeline__year-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--text-muted);
+  margin-bottom: 0.45rem;
+}
+
+/* Individual events along the line */
+.bio-timeline__event {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+
+  /* start hidden for scroll-in animation */
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 280ms ease-out,
+    transform 280ms ease-out;
+}
+
+.bio-timeline__event.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Timeline dot */
+.bio-timeline__dot {
+  position: relative;
+  margin-top: 0.4rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow:
+    0 0 0 2px rgba(15, 23, 42, 1),
+    0 0 12px rgba(56, 189, 248, 0.8);
+}
+
+/* Event card beside dot, with optional image */
+.bio-timeline__event-card {
+  flex: 1;
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.8rem;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(148, 163, 184, 0.4);
+
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+/* Text block inside card */
+.bio-timeline__event-main {
+  flex: 1;
+}
+
+.bio-timeline__event-title {
+  margin: 0 0 0.2rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.bio-timeline__event-meta {
+  margin: 0 0 0.4rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.bio-timeline__event-body {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* Optional media for each event */
+.bio-timeline__event-media {
+  flex: 0 0 110px;
+  max-width: 110px;
+  border-radius: 0.55rem;
+  overflow: hidden;
+  background: #020617;
+}
+
+.bio-timeline__event-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .bio-timeline {
+    padding-left: 1.4rem;
+  }
+
+  .bio-timeline__line {
+    left: 0.35rem;
+  }
+
+  .bio-timeline__event-card {
+    flex-direction: column;
+  }
+
+  .bio-timeline__event-media {
+    max-width: none;
+    width: 100%;
+    margin-top: 0.4rem;
+  }
+}

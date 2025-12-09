@@ -170,6 +170,150 @@
 
   </main>
 
+  <!-- Bio overlay template -->
+  <template id="overlay-bio">
+    <section class="overlay-section overlay-section--bio">
+
+      <!-- Hero / Summary -->
+      <header class="bio-hero">
+        <p class="bio-hero__title">Game Programmer &amp; Tools Engineer</p>
+        <h2 class="bio-hero__name">Kyler Saiki</h2>
+
+        <p class="bio-hero__desc">
+          I build gameplay systems and Unreal Engine tools that help large teams iterate faster,
+          keep their pipelines healthy, and ship ambitious games with confidence.
+        </p>
+
+        <ul class="bio-hero__skills">
+          <li>Unreal Engine · C++</li>
+          <li>Tools &amp; Pipelines</li>
+          <li>Gameplay Systems</li>
+          <li>Automation &amp; Integrations</li>
+        </ul>
+      </header>
+
+      <!-- Hobbies / Personal side -->
+      <section class="bio-hobbies">
+        <h3 class="bio-hobbies__title">Outside of Work</h3>
+        <p class="bio-hobbies__text">
+          When I’m not deep in editor code or gameplay systems, I’m usually experimenting with
+          Japanese–French–Italian fusion in the kitchen, bouldering, sketching, or planning the
+          next game jam prototype.
+        </p>
+        <ul class="bio-hobbies__list">
+          <li>Developing fusion tasting menus and dessert boxes</li>
+          <li>Bouldering and staying active</li>
+          <li>Sketching worlds, characters, and UI ideas</li>
+          <li>Game jams and small experimental prototypes</li>
+        </ul>
+      </section>
+
+      <!-- Vertical timeline -->
+      <section class="bio-timeline">
+        <div class="bio-timeline__line"></div>
+
+        <!-- Example year block: USC -->
+        <div class="bio-timeline__year-block">
+          <div class="bio-timeline__year-label">2020–2024</div>
+
+          <article class="bio-timeline__event" data-year="2022">
+            <div class="bio-timeline__dot"></div>
+            <div class="bio-timeline__event-card">
+              <div class="bio-timeline__event-main">
+                <h3 class="bio-timeline__event-title">USC — Computer Science (Games)</h3>
+                <p class="bio-timeline__event-meta">B.S. in Computer Science (Games)</p>
+                <p class="bio-timeline__event-body">
+                  Built student projects in Unreal Engine, explored gameplay programming, and
+                  discovered how much I enjoy building tools that unblock other developers.
+                </p>
+              </div>
+
+              <!-- Optional image for this milestone -->
+              <figure class="bio-timeline__event-media">
+                <img
+                  src="media/bio/bio-usc.jpg"
+                  alt="USC games project"
+                  loading="lazy"
+                />
+              </figure>
+            </div>
+          </article>
+        </div>
+
+        <!-- Example year block: studio rotations -->
+        <div class="bio-timeline__year-block">
+          <div class="bio-timeline__year-label">2024–2025</div>
+
+          <article class="bio-timeline__event" data-year="2024">
+            <div class="bio-timeline__dot"></div>
+            <div class="bio-timeline__event-card">
+              <div class="bio-timeline__event-main">
+                <h3 class="bio-timeline__event-title">Visual Concepts &amp; Gearbox</h3>
+                <p class="bio-timeline__event-meta">Engineering Rotations · Tools &amp; Workflows</p>
+                <p class="bio-timeline__event-body">
+                  Worked on internal tools, pipelines, and data workflows supporting large sports
+                  and action titles, learning how different studios think about production at scale.
+                </p>
+              </div>
+
+              <figure class="bio-timeline__event-media">
+                <img
+                  src="media/bio/bio-gearbox.jpg"
+                  alt="Internal tools and pipelines"
+                  loading="lazy"
+                />
+              </figure>
+            </div>
+          </article>
+
+          <article class="bio-timeline__event" data-year="2025">
+            <div class="bio-timeline__dot"></div>
+            <div class="bio-timeline__event-card">
+              <div class="bio-timeline__event-main">
+                <h3 class="bio-timeline__event-title">DSR Tool &amp; Automation</h3>
+                <p class="bio-timeline__event-meta">Jira · Confluence · Email Pipelines</p>
+                <p class="bio-timeline__event-body">
+                  Built and evolved a Daily Status Report system that pulls structured updates from
+                  Jira, renders them into readable summaries, and emails them out to keep teams aligned.
+                </p>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Example year block: now -->
+        <div class="bio-timeline__year-block">
+          <div class="bio-timeline__year-label">Now</div>
+
+          <article class="bio-timeline__event" data-year="2025">
+            <div class="bio-timeline__dot"></div>
+            <div class="bio-timeline__event-card">
+              <div class="bio-timeline__event-main">
+                <h3 class="bio-timeline__event-title">2K Games — Engineering Grad Program</h3>
+                <p class="bio-timeline__event-meta">Tools Engineer · Unreal Engine</p>
+                <p class="bio-timeline__event-body">
+                  Focusing on Unreal Engine tooling, automation, and workflows that help designers,
+                  artists, and engineers move faster and with more confidence.
+                </p>
+              </div>
+
+              <figure class="bio-timeline__event-media">
+                <img
+                  src="media/bio/bio-2k.jpg"
+                  alt="2K engineering grad program"
+                  loading="lazy"
+                />
+              </figure>
+            </div>
+          </article>
+        </div>
+      </section>
+
+    </section>
+  </template>
+
+
+
   <!-- Detail overlay (slides in from the right) -->
   <div id="detail-overlay" class="detail-overlay">
     <div class="detail-overlay__backdrop"></div>
@@ -301,7 +445,7 @@
           title while keeping iteration tight for designers, artists, and gameplay engineers.
           title while keeping iteration tight for designers, artists, and gameplay engineers.
           title while keeping iteration tight for designers, artists, and gameplay engineers.
-          
+
         </p>
       </section>
 
