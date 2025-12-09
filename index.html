@@ -1,155 +1,145 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Kyler Saiki Portfolio</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Golos+Text">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kyler Saiki — Game Programmer & Tools Engineer</title>
+  <link rel="stylesheet" href="styles/main.css" />
 </head>
 <body>
-  <main>
-    <section>
-      <div id="welcome">
-        <div class="heading-first">
-          <h1 class="heading-intro">Hi! I'm <span class="heading-name">Kyler</span></h1>
-        </div>
-        
-        <p class="heading-second">Here you can find information about my background and experience, as well as a selection of my projects.</p>
-        <a href="#background" id="view-more">View more</a>
-      </div>
-    </section>
-    
-    <section >
-      <div id="background">
-        <h1 class="title">About</h1>
-        <div id="about" class="info">
-          <p>My name is <span class="red-text">Kyler Saiki</span> and I am a third year Computer Science: Games major at the <span class="red-text">University of Southern California</span>. I am passionate about coding and constantly strive to improve my skills and stay up to date with the latest industry trends.  Some hobbies of mine are <span class="red-text">rock climbing, soccer,</span> and <span class=red-text>videogames</span>. Here are my skills and familiar technologies.  <span class="red-text">Continue scrolling</span> down to see my projects and contact information!</p>
-        </div>
-        <div id="skills" class="info">
-          <div class="skill">
-            <h3>Programming Languages</h3>
-            <li>JavaScript</li>
-            <li>Python</li>
-            <li>Java</li>
-            <li>C++</li>
-            <li>SQL</li>
-            <li>NoSQL</li>
-            <li>Swift</li>
-            <li>HTML</li>
-            <li>CSS</li>
-          </div>
-          <div class="skill">
-            <h3>Frameworks/Other</h3>
-            <li>ReactJS</li>
-            <li>NodeJS</li>
-            <li>ExpressJS</li>
-            <li>MongoDB</li>
-            <li>AWS</li>
-            <li>Git</li>
-            <li>Linux</li>
-            <li>Github Actions</li>
-            <li>Maya</li>
-            <li>Photoshop</li>
-            <li>Illustrator</li>
-          </div>
-        </div>
-      </div>
-      <div class="clearfloat"></div>
-    </section>
 
-
-    <section>
-      <h1 class="title">Projects</h1>
-      <div id="projects">
-        <div class="project">
-          <img src="./assets/Flushr-Img.png" alt="Flushr" class="proj-image">
-          <h2 class="project-name">Flushr</h2>
-          <p class="technologies">Java, HTML, CSS, MySQL, AWS Elastic Beanstalk, RDS, S3, Route 53</p>
-          <p>Flushr is a webapp that searches for restrooms in the area and sorts the results based on different settings.  Users are able to leave reviews and comments about restrooms and rate restrooms based upon certain criteria.  This app utilized AWS Elastic Beanstalk to host it as well as AWS RDS to store the data.</p>
-          <a href="https://github.com/CS201Group/Flushr" target="_blank" class="learn-more">Learn More</a>
-        </div>
-        <div class="project">
-          <img src="./assets/grouplan-img.png" alt="Grouplan" class="proj-image">
-          <h2 class="project-name">Grouplan</h2>
-          <p class="technologies">Swift, Google API, Firebase</p>
-          <p>Grouplan is an iOS application that allows users to plan out detailed events together from different devices.  Users can create events, view the events they are added to, or join new events via an event key and password. Firebase updates user's changes automatically, allowing users to make changes together in real time</p>
-          <a href="https://github.com/kysaiki/Grouplan" target="_blank" class="learn-more">Learn More</a>
-        </div>
-        <div class="project">
-          <img src="./assets/Stock-Correlation-Sample.png" alt="Stock Correlation Project" class="proj-image">
-          <h2 class="project-name">COVID Stock Correlation</h2>
-          <p class="technologies">Python Flask, HTML, CSS, AWS S3, AWS EC2</p>
-          <p>COVID Stock Correlation is a webapp finds the correlation between COVID cases in a state and a stock's price.  Users input a stock ticker symbol and a state abbreviation and the website will display a dotplot of cases mapped with stock price and the correlation strength.</p>
-          <a href="https://github.com/kysaiki/COVID-Stock-Correlation" target="_blank" class="learn-more">Learn More</a>
-        </div>
-
-        <div class="project">
-          <img src="./assets/citypop-img.png" alt="Citypop Image" class="proj-image">
-          <h2 class="project-name">Citypop.city</h2>
-          <p class="technologies">Python Flask, HTML, CSS, Javascript, AWS S3</p>
-          <p>Citypop.city is a website (currently only hosted on AWS) that streams Japanese 80's pop music with random pixel backgrounds.  Users can switch between randomized songs and bacgkrounds as they listen.</p>
-          <a href="https://musicplauyer.s3.us-west-1.amazonaws.com/musicplayer.html" target="_blank" class="learn-more">Learn More</a>
-        </div>
-        <div class="project">
-          <img src="./assets/server-img.png" alt="Server Image" class="proj-image">
-          <h2 class="project-name">Multithreaded Web Server</h2>
-          <p class="technologies">C++</p>
-          <p>This is a simple multithreaded web server written in C++ that allows multiple users to make wget requests to a server and download items from that server.</p>
-          <a href="" target="_blank" class="learn-more">Learn More</a>
-        </div>
-        <div class="project">
-          <img src="./assets/Egregore.png" alt="Egregore Image" class="proj-image">
-          <h2 class="project-name">Egregore</h2>
-          <p class="technologies">Unreal Engine, C++</p>
-          <p>Egregore is a first-person adventure game for PC and Mac that immerses players in modern Egypt as they unravel an occult conspiracy. By manipulating nodes on a graph, players shape their own reality, unveiling hidden truths amidst a web of misinformation. This game is built in Unreal Engine 5 and will likely be released in Spring/Summer 2024.</p>
-          <a href="" target="_blank" class="learn-more">Learn More</a>
-        </div>
-
-        <div class="project">
-          <img src="./assets/PixelPalette.png" alt="Pixel Palette Project" class="proj-image">
-          <h2 class="project-name">Pixel Palette</h2>
-          <p class="technologies">Unity, C#</p>
-          <p>Pixel Palette is a sandbox art game where players collect and craft colors to fill in paint-by-numbers pieces. </p>
-          <a href="" target="_blank" class="learn-more">Learn More</a>
-        </div>
-        <div class="project">
-          <img src="./assets/ToTheStars.png" alt="To The Stars Image" class="proj-image">
-          <h2 class="project-name">To The Stars</h2>
-          <p class="technologies">Unity, C#</p>
-          <p>To The Stars is a level-based physics puzzle game where players must navigate a rocket through different obstacles to get to a destination.</p>
-          <a href="" target="_blank" class="learn-more">Learn More</a>
-        </div>
-      
-      </div>
-  </section>
-  <h1 class="title">Contact</h1>
-    <form action="https://formspree.io/f/mnqyzewn" method="post" class="contact-form">
-      <div class="contact-field">
-        <label for="name" class="form-label">Name:</label>
-        <input type="text" id="name" name="name">
-      </div>
-      <div class="contact-field">
-        <label for="email" class="form-label">Email:</label>
-        <input type="mail" id="email" name="mail">
-      </div>
-      <div class="contact-field">
-        <label for="message" class="form-label message-label">Message:</label>
-        <textarea id="message" name="message"></textarea>
-      </div>
-      <input type="submit" value="Send" class="send-button">
-    </form>
+  <!-- Background media -->
+  <div class="bg-media">
+    <video
+      class="bg-media__video"
+      src="media/background.mp4"
+      autoplay
+      muted
+      loop
+      playsinline
+    ></video>
   </div>
+
+  <!-- Section radios -->
+  <input type="radio" name="section" id="section-bio" checked hidden>
+  <input type="radio" name="section" id="section-projects" hidden>
+  <input type="radio" name="section" id="section-cv" hidden>
+  <input type="radio" name="section" id="section-contact" hidden>
+
+  <main class="layout">
+
+    <!-- Top-left: Name + Nav -->
+    <section class="corner corner--top-left animate-in">
+      <div class="identity-block">
+        <div class="identity-block__mark">&lt;/&gt;</div>
+        <div class="identity-block__text">
+          <h1 class="identity-block__name">Kyler Saiki</h1>
+          <p class="identity-block__role">Game Programmer · Tools Engineer</p>
+        </div>
+      </div>
+
+      <nav class="corner-nav">
+        <label for="section-bio" class="nav-link">Bio</label>
+        <label for="section-projects" class="nav-link">Projects</label>
+        <label for="section-cv" class="nav-link">CV</label>
+        <label for="section-contact" class="nav-link">Contact</label>
+      </nav>
     </section>
-  </main>
-  <footer>
-    <div id="contact">
-      <a href = "mailto:kylersaiki@gmail.com" class="contact-button gmail-link"><img src="./assets/gmail-icon.png" alt="Gmail Icon" class="contact-icon"></a>
-      <a href = "https://www.linkedin.com/in/kyler-saiki/" class="contact-button linkedin-link"><img src="./assets/linked-in-icon.png" alt="LinkedIn Icon" class="contact-icon"></a>
-      <a href = "https://github.com/kysaiki" class="contact-button github-link"><img src="./assets/github-icon.png" alt="Github Icon" class="contact-icon"></a>
-      <a href="./assets/Kyler_Saiki_Resume.pdf" download class="contact-button resume-link"><img src="./assets/resume-icon.png" alt="Resume Icon" class="contact-icon"></a>
+
+    <!-- Global projects filter in top-right of screen -->
+    <div class="projects-filter-root">
+      <button
+        id="skill-filter-toggle"
+        class="skill-filter-toggle"
+        type="button"
+      >
+        Filter
+        <span id="skill-filter-label" class="skill-filter-label">All</span>
+      </button>
+      <div id="skill-filter-menu" class="skill-filter-menu"></div>
     </div>
-    
-    <p>Copyright © 2023 Kyler Saiki</p>
-  </footer>
+
+    <!-- Bottom-right: Bio / Projects / CV / Contact -->
+    <section class="corner corner--bottom-right animate-in animate-in--delay">
+
+      <!-- BIO -->
+      <article class="panel panel--bio">
+        <h2 class="panel__title">Bio</h2>
+        <p class="panel__body">
+          I build tools and systems for game teams—mostly around Unreal Engine,
+          editor workflows, and production automation.
+        </p>
+        <p class="panel__body">
+          I focus on iteration speed, robust pipelines, and empowering content teams
+          through solid tooling.
+        </p>
+      </article>
+
+      <!-- PROJECTS (description only; filter is global top-right) -->
+      <article class="panel panel--projects">
+        <div id="project-detail" class="project-detail"></div>
+      </article>
+
+      <!-- CV -->
+      <article class="panel panel--cv">
+        <h2 class="panel__title">CV</h2>
+        <p class="panel__body">
+          Tools & Gameplay Programmer at 2K Games.
+        </p>
+        <p class="panel__body">
+          Previously at Gearbox Software and Visual Concepts, focused on Unreal Engine,
+          Slate tools, asset pipelines, and technical workflows.
+        </p>
+        <p class="panel__body">
+          B.S. in Computer Science (Games) — USC.
+        </p>
+        <p class="panel__body">
+          <a href="media/KylerSaiki_CV.pdf" target="_blank">Download full CV (PDF)</a>
+        </p>
+      </article>
+
+      <!-- CONTACT -->
+      <article class="panel panel--contact">
+        <h2 class="panel__title">Contact</h2>
+        <div class="contact-icons">
+
+          <!-- Email -->
+          <a href="mailto:kylersaiki@gmail.com" class="contact-icon" aria-label="Email">
+            <svg viewBox="0 0 24 24">
+              <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+              <path d="M4 7.5 12 13l8-5.5"></path>
+            </svg>
+          </a>
+
+          <!-- GitHub -->
+          <a href="https://github.com/your-github-here" class="contact-icon" target="_blank" aria-label="GitHub">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.51 2.87 8.33 6.84 9.68.5.1.68-.22.68-.48 0-.24-.01-1.03-.01-1.88-2.48.55-3.01-1.09-3.01-1.09-.45-1.18-1.11-1.5-1.11-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-1.98-.23-4.06-1.02-4.06-4.54 0-1.01.35-1.84.93-2.49-.09-.23-.4-1.16.09-2.42 0 0 .75-.25 2.46.95a8.18 8.18 0 0 1 4.48 0c1.71-1.2 2.46-.95 2.46-.95.49 1.26.18 2.19.09 2.42.58.65.93 1.48.93 2.49 0 3.53-2.09 4.3-4.08 4.53.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .26.18.58.69.48A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z"></path>
+            </svg>
+          </a>
+
+          <!-- LinkedIn -->
+          <a href="https://www.linkedin.com/in/your-linkedin-here" class="contact-icon" target="_blank" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24">
+              <circle cx="4" cy="4" r="1.6"></circle>
+              <rect x="3" y="7" width="2" height="13" rx="0.5"></rect>
+              <path d="M9 10h2v1h.03c.3-.6 1.06-1.24 2.2-1.24C14.98 9.76 16 10.7 16 12.7V20h-2v-6.1c0-1.02-.35-1.7-1.24-1.7-.68 0-1.08.46-1.26.9-.07.16-.1.38-.1.6V20H9z"></path>
+            </svg>
+          </a>
+
+        </div>
+      </article>
+
+    </section>
+
+    <!-- Bottom-center: dots + hover-only thumbnail -->
+    <section class="projects-nav">
+      <div id="project-preview" class="project-preview"></div>
+      <div id="project-dots" class="project-dots"></div>
+    </section>
+
+  </main>
+
+  <script src="scripts/main.js"></script>
 </body>
 </html>

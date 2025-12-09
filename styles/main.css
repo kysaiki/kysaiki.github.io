@@ -1,0 +1,491 @@
+/* ========== BASE ========== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #05060b;
+  --accent: #38bdf8;
+  --accent-alt: #60a5fa;
+  --text: #f9fafb;
+  --text-muted: #9ca3af;
+  --transition-fast: 140ms ease-out;
+  --transition-med: 220ms cubic-bezier(0.19,1,0.22,1);
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "SF Pro Text", "Segoe UI", sans-serif;
+}
+
+/* ========== BACKGROUND MEDIA ========== */
+
+.bg-media {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+}
+
+.bg-media__video,
+.bg-media__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    linear-gradient(to top, rgba(0,0,0,0.7), transparent 55%),
+    radial-gradient(circle at 10% 0%, rgba(56,189,248,0.18), transparent 60%);
+}
+
+.layout {
+  position: relative;
+  min-height: 100vh;
+}
+
+/* ========== CORNERS ========== */
+
+.corner {
+  position: fixed;
+  max-width: 460px;
+  z-index: 1;
+}
+
+.corner--top-left {
+  top: 2rem;
+  left: 2rem;
+}
+
+.corner--bottom-right {
+  bottom: 2rem;
+  right: 2rem;
+  text-align: right;
+}
+
+/* ========== IDENTITY & NAV ========== */
+
+.identity-block {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.identity-block__mark {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.4rem;
+  background: var(--accent);
+  color: #020617;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.identity-block__name {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.identity-block__role {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.corner-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.nav-link {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition:
+    color var(--transition-fast),
+    transform var(--transition-fast),
+    text-shadow var(--transition-fast);
+}
+
+.nav-link:hover {
+  color: var(--text);
+}
+
+/* Highlight active section */
+#section-bio:checked      ~ .layout .corner-nav label[for="section-bio"],
+#section-projects:checked ~ .layout .corner-nav label[for="section-projects"],
+#section-cv:checked       ~ .layout .corner-nav label[for="section-cv"],
+#section-contact:checked  ~ .layout .corner-nav label[for="section-contact"] {
+  color: var(--text);
+  font-weight: 500;
+  text-shadow: 0 0 12px rgba(56,189,248,0.6);
+}
+
+/* ========== PANELS ========== */
+
+.panel {
+  display: none;
+}
+
+.panel__title {
+  margin: 0 0 0.6rem;
+  font-size: 1.05rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.panel__body {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+/* Section visibility */
+#section-bio:checked      ~ .layout .panel--bio      { display:block; }
+#section-projects:checked ~ .layout .panel--projects { display:block; }
+#section-cv:checked       ~ .layout .panel--cv       { display:block; }
+#section-contact:checked  ~ .layout .panel--contact  { display:block; }
+
+/* ========== CONTACT ICONS ========== */
+
+.contact-icons {
+  display: inline-flex;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.contact-icon {
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  text-decoration: none;
+  opacity: 0.9;
+  transition:
+    transform var(--transition-fast),
+    opacity var(--transition-fast);
+}
+
+.contact-icon svg {
+  width: 1.3rem;
+  height: 1.3rem;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  fill: none;
+}
+
+.contact-icon:hover {
+  transform: translateY(-2px);
+  opacity: 1;
+}
+
+/* ========== GLOBAL PROJECT FILTER (TOP-RIGHT) ========== */
+
+.projects-filter-root {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: none;
+  align-items: flex-start;
+  gap: 0.4rem;
+  z-index: 3;
+}
+
+/* Only visible when Projects section is active */
+#section-projects:checked ~ .layout .projects-filter-root {
+  display: flex;
+}
+
+/* Filter button: text only, no border/background */
+.skill-filter-toggle {
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.skill-filter-toggle:hover {
+  color: var(--text);
+  text-shadow: 0 0 8px rgba(148,163,184,0.7);
+}
+
+.skill-filter-label {
+  font-weight: 500;
+  color: var(--accent);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* Minimal dropdown: no box, animated options */
+.skill-filter-menu {
+  position: absolute;
+  top: 2.4rem;
+  right: 0.1rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+  transition: opacity 160ms ease-out, transform 160ms ease-out;
+}
+
+/* Opened state (JS adds .is-open) */
+.skill-filter-menu.is-open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Fancy drop-in for each option */
+@keyframes filterOptionDrop {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.skill-filter-option {
+  display: block;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  text-align: right;
+  padding: 0.22rem 0;
+  font-size: 0.85rem;
+  cursor: pointer;
+  white-space: nowrap;
+  opacity: 0; /* start transparent, animates in */
+}
+
+/* When menu opens, animate options with staggered delays */
+.skill-filter-menu.is-open .skill-filter-option {
+  animation: filterOptionDrop 200ms ease forwards;
+}
+
+.skill-filter-menu.is-open .skill-filter-option:nth-child(1) { animation-delay: 20ms; }
+.skill-filter-menu.is-open .skill-filter-option:nth-child(2) { animation-delay: 60ms; }
+.skill-filter-menu.is-open .skill-filter-option:nth-child(3) { animation-delay: 100ms; }
+.skill-filter-menu.is-open .skill-filter-option:nth-child(4) { animation-delay: 140ms; }
+.skill-filter-menu.is-open .skill-filter-option:nth-child(5) { animation-delay: 180ms; }
+/* (extra options will still animate, just less staggered) */
+
+/* Hover / selected highlight */
+.skill-filter-option:hover {
+  color: var(--text);
+  text-shadow: 0 0 6px rgba(148,163,184,0.6);
+}
+
+.skill-filter-option.is-active {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* ========== PROJECT DESCRIPTION (RIGHT) ========== */
+
+.project-detail__item {
+  display: none;
+}
+
+.project-detail__item.is-active {
+  display: block;
+}
+
+.project-detail__title {
+  margin: 0 0 0.5rem;
+  font-size: 1.05rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.project-detail__body {
+  margin: 0 0 0.4rem;
+  font-size: 1rem;
+  font-weight: 300;
+  max-width: 360px;
+}
+
+/* Hide details when Projects not selected */
+#section-projects:not(:checked) ~ .layout .project-detail__item {
+  display: none !important;
+}
+
+/* ========== BOTTOM-CENTER: DOTS + PREVIEW ========== */
+
+.projects-nav {
+  position: fixed;
+  bottom: 1.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 2;
+}
+
+/* Only show nav when Projects is active */
+#section-projects:checked ~ .layout .projects-nav {
+  display: flex;
+}
+
+.project-preview {
+  position: relative;
+  height: 160px;
+  width: 240px;
+  opacity: 0;
+  transition: opacity 200ms ease-out;
+  pointer-events: none;
+}
+
+/* Show thumbnail only when nav hovered */
+.projects-nav:hover .project-preview {
+  opacity: 1;
+}
+
+/* Thumbnail card */
+.project-preview__card {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 230px;
+  height: 150px;
+  border-radius: 14px;
+  padding: 0.7rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(56,189,248,0.9),
+      rgba(15,23,42,0.98)
+    );
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.project-preview__card--alt {
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(96,165,250,0.95),
+      rgba(15,23,42,0.98)
+    );
+}
+
+.project-preview__card.is-active {
+  opacity: 1;
+}
+
+.project-preview__title {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.project-preview__desc {
+  font-size: 0.88rem;
+  font-weight: 300;
+}
+
+/* dots */
+.project-dots {
+  display: inline-flex;
+  gap: 0.35rem;
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  border: 1px solid var(--text-muted);
+  cursor: pointer;
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.dot.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+/* ========== ANIMATIONS / RESPONSIVE ========== */
+
+@keyframes fadeUpInCorner {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-in {
+  opacity: 0;
+  animation: fadeUpInCorner 0.6s ease-out forwards;
+}
+
+.animate-in--delay {
+  animation-delay: 0.15s;
+}
+
+@media (max-width: 768px) {
+  .corner--top-left {
+    top: 1.5rem;
+    left: 1.5rem;
+    right: 1.5rem;
+  }
+
+  .corner--bottom-right {
+    left: 1.5rem;
+    right: 1.5rem;
+    bottom: 1.5rem;
+  }
+
+  .corner {
+    max-width: none;
+  }
+
+  .project-preview__card {
+    width: 200px;
+    height: 135px;
+  }
+
+  .projects-filter-root {
+    top: 1rem;
+    right: 1rem;
+  }
+}
