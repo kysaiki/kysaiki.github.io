@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#faf8f4">
+<title>Work – Kyler Saiki, Software Engineering Contractor</title>
+<meta name="description" content="Case studies: annotation platform and analyst dashboard for AddressHate, tools and gameplay engineering at 2K Games, and shipped games including Egregore (83,000+ downloads).">
+<link rel="canonical" href="https://kysaiki.github.io/work/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kyler Saiki">
+<meta property="og:title" content="Work – Kyler Saiki">
+<meta property="og:description" content="Case studies from contract work, 2K Games, and shipped games.">
+<meta property="og:url" content="https://kysaiki.github.io/work/">
+<meta property="og:image" content="https://kysaiki.github.io/assets/img/og-image.png">
+<meta property="og:image:alt" content="Kyler Saiki, software engineering contractor, Novato, California">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&amp;display=swap">
+<link rel="stylesheet" href="/assets/css/site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/">Kyler Saiki<small>Software engineering contractor</small></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/services/">Services</a></li>
+        <li><a href="/work/" aria-current="page">Work</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="container page-hero">
+    <p class="eyebrow">Work</p>
+    <h1>Recent projects, in some detail.</h1>
+    <p class="lead">Client work, studio work, and shipped games. Where something is under NDA or access-controlled, I describe the shape of the work rather than the specifics.</p>
+    <ul class="work-index" aria-label="On this page">
+      <li><a href="#addresshate">AddressHate</a></li>
+      <li><a href="#2k-games">2K Games</a></li>
+      <li><a href="#egregore">Egregore</a></li>
+      <li><a href="#pixel-palette">Pixel Palette</a></li>
+      <li><a href="#couch-wizards">Couch Wizards</a></li>
+      <li><a href="#other">Teaching and other projects</a></li>
+    </ul>
+  </section>
+
+  <div class="container">
+
+    <article class="case" id="addresshate">
+      <h2>AddressHate</h2>
+      <p class="sub">Contract software engineer · June 2026 – present</p>
+      <div class="case-grid">
+        <div class="case-body">
+          <p><a href="https://addresshate.org/" rel="noopener">AddressHate</a> is a research organization studying antisemitism and online hate, with an annotation team that classifies content against a published taxonomy. My engagement covers most of the software the research runs on: I'm the engineer on the analyst dashboard, the browser extension, and the pipeline tooling, working alongside an ML engineer who owns the models.</p>
+
+          <h3>Analyst dashboard</h3>
+          <p>A Next.js and React application over PostgreSQL that turns the annotation pipeline's output into something analysts and partners can use: model performance, platform and AI-safety scorecards, narrative tracking, geographic distribution, and a team section. Google sign-in through NextAuth with per-section access control and tenant scoping, charts with Recharts, and a live-data development mode that proxies both Cloud SQL data planes so local work runs against real data safely.</p>
+
+          <h3>Browser extension</h3>
+          <p>A Chrome extension that lets the annotation team classify posts in place on 16 platforms: X, YouTube, Rumble, TikTok, Reddit, Instagram, Facebook, LinkedIn, Bluesky, 4chan, and the ChatGPT, Claude, Grok, Gemini, DeepSeek, and Qwen chat interfaces. Each platform has its own adapter; the annotation panel is a Shadow-DOM drawer so it survives whatever the host page's styles do. Submissions queue locally with an undo window and retries, then sync to an ingest service that archives every envelope and only projects to the database after a lead approves. I took it from version 0.2 through 0.5: new platforms, quotas, tenant routing, a review tier, security fixes, Playwright end-to-end tests, and packaging for the Chrome Web Store.</p>
+
+          <h3>Pipeline control panel</h3>
+          <p>A FastAPI and Next.js control panel for the annotation platform: what the extension has captured, who is annotating it, and the Brandwatch feed the work comes from. Query-to-batch-to-import workbench, a Brandwatch query language for archive searches, labels and archive surfaces, and production monitoring for the website and the extension service.</p>
+
+          <h3>Infrastructure and the rest</h3>
+          <ul>
+            <li>Label Studio on Google Cloud Run with Cloud SQL and Cloud Storage behind it, plus the deploy scripts and sandbox checks around it</li>
+            <li>Security review and hardening across the apps, including access-control rework and a documented audit trail</li>
+            <li>Contributions to the organization's classification API and a narrative-intelligence service</li>
+            <li>Internal developer tooling: a task dashboard and CLI, a Markdown viewer, and a launcher panel the team uses across projects</li>
+          </ul>
+        </div>
+        <aside class="case-meta" aria-label="Project details">
+          <dl>
+            <div><dt>Role</dt><dd>Contract software engineer (full stack)</dd></div>
+            <div><dt>Period</dt><dd>June 2026 – present</dd></div>
+            <div><dt>Stack</dt><dd>TypeScript, Next.js, React, Tailwind CSS, PostgreSQL, Python, FastAPI, Chrome extension APIs, esbuild, Playwright, Vitest, Docker, GitHub Actions, Google Cloud (Cloud Run, Cloud SQL, Cloud Storage, IAM, Secret Manager)</dd></div>
+            <div><dt>Access</dt><dd>The dashboard and extension are access-controlled research tools and aren't publicly demonstrable. I can walk through them on a call.</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </article>
+
+    <article class="case" id="2k-games">
+      <h2>2K Games</h2>
+      <p class="sub">Engineering Program · Novato, California · October 2024 – March 2026</p>
+      <div class="case-grid">
+        <div class="case-body">
+          <p>A rotational engineering program across three 2K studios, each rotation a different kind of engineering. Details are limited by NDA; the summary below matches what I'm able to share publicly.</p>
+
+          <h3>Shared Development Services · Tools Engineer · Oct 2025 – Mar 2026</h3>
+          <ul>
+            <li>Developed the Daily Status Report system that sends producers a daily report of work completed across projects</li>
+            <li>Built an Atlassian plugin on Forge and Azure that automates Confluence and Jira tasks for producers</li>
+          </ul>
+
+          <h3>Gearbox Software · Gameplay and Tools Engineer · Apr 2025 – Oct 2025</h3>
+          <ul>
+            <li>One of two tools engineers building the foundational tools and systems for an unannounced project</li>
+            <li>Designed an Actor Wizard that streamlines actor creation for designers and artists</li>
+            <li>Created an Item Display Wizard that specifies how item pickups are equipped on characters in real time</li>
+            <li>Developed a custom component that displays a character's items using async loading and a fast array serializer</li>
+          </ul>
+
+          <h3>Visual Concepts · Backend and Business Logic, MyCareer · Oct 2024 – Mar 2025</h3>
+          <ul>
+            <li>Worked directly with designers to develop the new MyCareer GOAT Skill features for NBA 2K26</li>
+            <li>Added default skills based on character attributes and more detailed in-game skill stat collection</li>
+            <li>Helped lead engineers resolve a major exploit in the cross-save progression system</li>
+            <li>Implemented game-duration and skill-progression debug features for simpler testing</li>
+          </ul>
+        </div>
+        <aside class="case-meta" aria-label="Project details">
+          <dl>
+            <div><dt>Role</dt><dd>Engineering Program: tools, gameplay, and backend engineering</dd></div>
+            <div><dt>Period</dt><dd>October 2024 – March 2026</dd></div>
+            <div><dt>Stack</dt><dd>C++, C#, Unreal Engine 5, Atlassian Forge, Azure, Perforce, Jenkins</dd></div>
+            <div><dt>Shipped</dt><dd>NBA 2K26 (MyCareer features)</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </article>
+
+    <article class="case" id="egregore">
+      <h2>Egregore</h2>
+      <p class="sub">USC Games · Unreal Engine 5 · Team of 30 · Released June 2024</p>
+      <div class="case-grid">
+        <div class="case-body">
+          <figure class="figure">
+            <img src="/assets/img/egregore.jpg" width="616" height="353" alt="Egregore key art: the game's title in glowing magenta letters over a dark scene." loading="lazy">
+            <figcaption>Egregore, published by USC Games. Free on Steam and the Epic Games Store.</figcaption>
+          </figure>
+          <p>A first-person point-and-click puzzle adventure set in modern Cairo, built by a 30-person student team and published by USC Games. Released free on <a href="https://store.steampowered.com/app/2858380/Egregore/" rel="noopener">Steam</a> and the Epic Games Store in June 2024, with more than 83,000 downloads.</p>
+          <ul>
+            <li>Developed the dynamic, non-linear camera movement system using Unreal Sequencer and spline-based traversal</li>
+            <li>Built custom editor tools that let designers iterate on in-game camera frames and transitions without engineering help</li>
+          </ul>
+        </div>
+        <aside class="case-meta" aria-label="Project details">
+          <dl>
+            <div><dt>Role</dt><dd>Engineer: camera system and editor tooling</dd></div>
+            <div><dt>Engine</dt><dd>Unreal Engine 5, C++ and Blueprints</dd></div>
+            <div><dt>Release</dt><dd>June 21, 2024, Steam and Epic Games Store</dd></div>
+            <div><dt>Link</dt><dd><a href="https://store.steampowered.com/app/2858380/Egregore/" rel="noopener">Egregore on Steam</a></dd></div>
+          </dl>
+        </aside>
+      </div>
+    </article>
+
+    <article class="case" id="pixel-palette">
+      <h2>Pixel Palette</h2>
+      <p class="sub">Unity · Team of 5</p>
+      <div class="case-grid">
+        <div class="case-body">
+          <p>A cozy puzzle game where players collect and mix colors across a pixelated landscape to complete paintings. I owned the systems side of a five-person team.</p>
+          <ul>
+            <li>Built a procedural generation algorithm that object-pools terrain to keep performance steady during map traversal</li>
+            <li>Implemented crafting, inventory, narrative, and audio systems</li>
+          </ul>
+        </div>
+        <aside class="case-meta" aria-label="Project details">
+          <dl>
+            <div><dt>Role</dt><dd>Systems and gameplay programmer</dd></div>
+            <div><dt>Engine</dt><dd>Unity, C#</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </article>
+
+    <article class="case" id="couch-wizards">
+      <h2>Couch Wizards</h2>
+      <p class="sub">Unreal Engine 5 · Solo project</p>
+      <div class="case-grid">
+        <div class="case-body">
+          <p>A couch co-op game where players fight together as wizards, each with a distinct spell set and combat style. A solo project I used to go deep on Unreal's gameplay framework.</p>
+          <ul>
+            <li>Built the combat and movement systems on the Gameplay Ability System with the Lyra framework</li>
+            <li>Wrote a custom shader that blends a pixel shader with a toon shader for a retro look</li>
+          </ul>
+        </div>
+        <aside class="case-meta" aria-label="Project details">
+          <dl>
+            <div><dt>Role</dt><dd>Everything</dd></div>
+            <div><dt>Engine</dt><dd>Unreal Engine 5, C++, Gameplay Ability System, Lyra</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </article>
+
+    <article class="case" id="other">
+      <h2>Teaching and other projects</h2>
+      <p class="sub">USC, an iOS app, and the tools I build for myself</p>
+      <div class="case-grid">
+        <div class="case-body">
+          <ul>
+            <li><strong>USC Viterbi, ITP 380 Video Game Programming.</strong> Undergraduate teaching assistant, August 2023 – May 2024. Helped more than 100 students through C++ game programming fundamentals and gave detailed code reviews on their work.</li>
+            <li><strong>Grouplan.</strong> An iOS app for planning detailed events together from different devices. Swift. <a href="https://github.com/kysaiki/Grouplan" rel="noopener">Source on GitHub</a>.</li>
+            <li><strong>Personal tools.</strong> Between client projects I build small things for myself: browser-based game prototypes, desktop utilities, and the invoicing and tracking tools I run my own business with.</li>
+          </ul>
+        </div>
+        <aside class="case-meta" aria-label="Links">
+          <dl>
+            <div><dt>GitHub</dt><dd><a href="https://github.com/kysaiki" rel="noopener">github.com/kysaiki</a></dd></div>
+            <div><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/kyler-saiki/" rel="noopener">linkedin.com/in/kyler-saiki</a></dd></div>
+          </dl>
+        </aside>
+      </div>
+    </article>
+
+  </div>
+
+</main>
+
+<section class="cta-band">
+  <div class="container cta-inner">
+    <div>
+      <h2>Want something like this built?</h2>
+      <p>Tell me what you're working on and I'll tell you how I'd approach it.</p>
+    </div>
+    <a class="btn btn-primary" href="mailto:kylersaiki@gmail.com?subject=Project%20inquiry">kylersaiki@gmail.com</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div><strong>Kyler Saiki</strong><br>Software engineering contractor<br>Novato, California</div>
+    <ul class="footer-links">
+      <li><a href="mailto:kylersaiki@gmail.com">Email</a></li>
+      <li><a href="https://www.linkedin.com/in/kyler-saiki/" rel="noopener">LinkedIn</a></li>
+      <li><a href="https://github.com/kysaiki" rel="noopener">GitHub</a></li>
+    </ul>
+    <div class="footer-note">&copy; 2026 Kyler Saiki. Last updated August 21, 2026. No cookies, no analytics.</div>
+  </div>
+</footer>
+<script src="/assets/js/site.js" defer></script>
+</body>
+</html>
